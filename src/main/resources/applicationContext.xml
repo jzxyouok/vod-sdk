@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <!--配置扫描service-->
+    <context:component-scan base-package="com.willie.cloud.vod.service"
+                            annotation-config="true">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+    </context:component-scan>
+
+    <!--预加载jdbc配置-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!--数据源配置-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--jpa EntityManager配置-->
+    <bean id="entityManager"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/><!--数据源-->
+        <property name="packagesToScan"
+                  value="com.willie.cloud.vod.domain"/><!--扫描entity-->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"></bean>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.ejb.naming_strategy">
+                    org.hibernate.cfg.ImprovedNamingStrategy
+                </prop>
+                <prop key="hibernate..hbm2ddl.auto">update</prop><!--自动建表开启-->
+                <prop key="hibernate.show_sql">true</prop><!--打印sql-->
+                <prop key="hibernate.format_sql">true</prop><!--格式化sql-->
+                <prop key="hibernate.dialect"><!--mysql的数据库方言-->
+                    org.hibernate.dialect.MySQL5InnoDBDialect
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--jpa管理事务-->
+    <bean id="jpaTransactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManager"/>
+    </bean>
+
+    <!--通知-->
+     <tx:advice id="txAdvice" transaction-manager="jpaTransactionManager">
+         <tx:attributes>
+             <tx:method name="save*"/>
+             <tx:method name="delete*"/>
+             <tx:method name="update*"/>
+             <tx:method name="insert*"/>
+             <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+             <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+             <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+             <tx:method name="count*" propagation="SUPPORTS" read-only="true"/>
+         </tx:attributes>
+     </tx:advice>
+
+     <aop:config>
+         <aop:advisor advice-ref="txAdvice"
+                      pointcut="execution(* com.willie.cloud.vod.service.*.*(..))"/>
+     </aop:config>
+
+    <!--扫描repository-->
+    <jpa:repositories base-package="com.willie.cloud.vod.repository"
+                      entity-manager-factory-ref="entityManager"/>
+
+</beans>
