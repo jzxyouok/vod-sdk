@@ -101,13 +101,14 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
             synchronized (BFCloudVodManager.class) {
                 if (null == vodBFManager) {
                     vodBFManager = new BFCloudVodManager();
-                    appId = config.getAppId();
-                    accessKey = config.getAccessKey();
-                    secretKey = config.getSecretKey();
-                    expires = config.getExpires();
                 }
             }
         }
+        /*这里属性赋值放在双重校验外，主要防止反射生成的实例*/
+        appId = config.getAppId();
+        accessKey = config.getAccessKey();
+        secretKey = config.getSecretKey();
+        expires = config.getExpires();
         return vodBFManager;
     }
 }

@@ -26,13 +26,13 @@ public class AliyunVodManager extends CloudVodManager {
             synchronized (AliyunVodManager.class) {
                 if (null == aliyunVodManager) {
                     aliyunVodManager = new AliyunVodManager();
-                    appId = cloudVodConfig.getAppId();
-                    accessKey = cloudVodConfig.getAccessKey();
-                    secretKey = cloudVodConfig.getSecretKey();
-                    expires = cloudVodConfig.getExpires();
                 }
             }
         }
+        appId = cloudVodConfig.getAppId();
+        accessKey = cloudVodConfig.getAccessKey();
+        secretKey = cloudVodConfig.getSecretKey();
+        expires = cloudVodConfig.getExpires();
         return aliyunVodManager;
     }
 }
