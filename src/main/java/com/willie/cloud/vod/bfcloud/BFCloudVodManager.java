@@ -1,6 +1,6 @@
 package com.willie.cloud.vod.bfcloud;
 
-import com.willie.cloud.vod.CloudVodConfig;
+import com.willie.cloud.vod.domain.CloudVodConfig;
 import com.willie.cloud.vod.CloudVodManager;
 import com.willie.cloud.vod.bfcloud.api.BFCloudAlbum;
 import com.willie.cloud.vod.bfcloud.api.BFCloudCategory;

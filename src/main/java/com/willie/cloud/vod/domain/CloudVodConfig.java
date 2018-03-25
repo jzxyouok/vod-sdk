@@ -1,4 +1,4 @@
-package com.willie.cloud.vod;
+package com.willie.cloud.vod.domain;
 
 import java.io.Serializable;
 

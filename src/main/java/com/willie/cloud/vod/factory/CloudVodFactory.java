@@ -1,7 +1,7 @@
 package com.willie.cloud.vod.factory;
 
 import com.qcloud.vod.VodApi;
-import com.willie.cloud.vod.CloudVodConfig;
+import com.willie.cloud.vod.domain.CloudVodConfig;
 import com.willie.cloud.vod.CloudVodManager;
 import com.willie.cloud.vod.aliyun.AliyunVodManager;
 import com.willie.cloud.vod.bfcloud.BFCloudVodManager;

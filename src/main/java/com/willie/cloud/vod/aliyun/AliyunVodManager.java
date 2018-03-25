@@ -1,6 +1,6 @@
 package com.willie.cloud.vod.aliyun;
 
-import com.willie.cloud.vod.CloudVodConfig;
+import com.willie.cloud.vod.domain.CloudVodConfig;
 import com.willie.cloud.vod.CloudVodManager;
 
 /**
