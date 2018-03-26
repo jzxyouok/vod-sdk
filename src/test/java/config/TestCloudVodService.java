@@ -1,7 +1,7 @@
 package config;
 
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
-import com.willie.cloud.vod.service.CloudVodService;
+import com.willie.cloud.vod.service.CloudVodUpdateService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ import java.util.List;
 @ContextConfiguration(value = "classpath:applicationContext.xml")
 public class TestCloudVodService {
     @Autowired
-    private CloudVodService cloudVodService;
+    private CloudVodUpdateService cloudVodService;
 
     @Ignore
     @Test
@@ -47,7 +47,6 @@ public class TestCloudVodService {
         System.out.println(cloudVodService.getCloudVodConfigRepository().save(configs));
     }
 
-    @Ignore
     @Test
     public void testFindConfigByName() {
         System.out.println(cloudVodService.getCloudVodConfigRepository().findCloudVodConfigByAppName("baofeng"));

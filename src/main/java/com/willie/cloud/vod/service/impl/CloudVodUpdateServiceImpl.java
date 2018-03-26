@@ -8,6 +8,7 @@ import com.willie.cloud.vod.bfcloud.constent.BFConstent;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
 import com.willie.cloud.vod.exception.ParameterException;
 import com.willie.cloud.vod.factory.CloudVodFactory;
+import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
 import com.willie.cloud.vod.service.CloudVodService;
 import com.willie.cloud.vod.service.CloudVodUpdateService;
 import com.willie.cloud.vod.tencent.constent.QCloudConstent;
@@ -227,6 +228,11 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
             BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
             return bfCloudVodManager.deleteFileFromAlbum(fileId, albumId, expires);
         }
+    }
+
+    @Override
+    public CloudVodConfigRepository getCloudVodConfigRepository() {
+        return cloudVodConfigRepository;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.willie.cloud.vod.service;
 
+import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
@@ -96,4 +98,6 @@ public interface CloudVodUpdateService {
      * @return status 0表示成功，非0表示失败
      */
     Map<String, Object> deleteFileFromAlbum(String fileId, String albumId, Long expires);
+
+    CloudVodConfigRepository getCloudVodConfigRepository();
 }
