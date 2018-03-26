@@ -1,6 +1,5 @@
 package com.willie.cloud.vod.bfcloud;
 
-import com.willie.cloud.vod.domain.CloudVodConfig;
 import com.willie.cloud.vod.CloudVodManager;
 import com.willie.cloud.vod.bfcloud.api.BFCloudAlbum;
 import com.willie.cloud.vod.bfcloud.api.BFCloudCategory;
@@ -10,6 +9,7 @@ import com.willie.cloud.vod.bfcloud.constent.BFConstent;
 import com.willie.cloud.vod.bfcloud.util.GenerateTokenUtil;
 import com.willie.cloud.vod.bfcloud.util.HttpUtil;
 import com.willie.cloud.vod.bfcloud.util.URLUtil;
+import com.willie.cloud.vod.domain.config.CloudVodConfig;
 
 import java.util.Map;
 
@@ -28,8 +28,11 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
 
     @Override
     public Map<String, Object> deleteFile(String fileId, long expires) {
-
-        return null;
+        String param = "fileid=" + fileId + "&expires=" + getExpires(expires);
+        logger.info("删除文件接口参数:{},token有效期:{}", param, getExpires(expires));
+        String token = getToken(param);
+        String url = getURL(FileOpertation.DELETE_FILE, token);
+        return HttpUtil.transferGetResult(url);
     }
 
     @Override
@@ -37,57 +40,123 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
         String param = "pcatid=" + parentCategoryId +
                 "&name=" +
                 name +
-                "&expires=" +
-                (System.currentTimeMillis() / 1000 + expires);
-        logger.info("增加分类请求参数param:{}", param);
-        String token = GenerateTokenUtil.getBFCloudToken(accessKey, secretKey, param);
-        String url = BFConstent.API_URL + BFCloudCategory.ADD_CATEGORY + URLUtil.makeUrl(appId, token);
+                "&expires=" + getExpires(expires);
+        logger.info("增加分类接口参数param:{}", param);
+        String token = getToken(param);
+        String url = getURL(BFCloudCategory.ADD_CATEGORY, token);
         return HttpUtil.transferGetResult(url);
     }
 
     @Override
     public Map<String, Object> deleteCategory(String categoryId, long expires) {
-        return null;
+        String param = "catid=" + categoryId + "&expires=" + getExpires(expires);
+        logger.info("删除分类接口参数param:{}", param);
+        String token = getToken(param);
+        String url = getURL(BFCloudCategory.DELETE_CATEGORY, token);
+        return HttpUtil.transferGetResult(url);
     }
 
     @Override
     public Map<String, Object> addFile2Category(String categoryId, String fileId, long expires) {
-        return null;
+        String param = "catid=" + categoryId + "&fileid=" + fileId + "&expires=" + getExpires(expires);
+        logger.info("分类中添加文件接口参数param:{}", param);
+        String token = getToken(param);
+        String url = getURL(BFCloudCategory.ADD_FILE_2_CATEGORY, token);
+        return HttpUtil.transferGetResult(url);
     }
 
     @Override
     public Map<String, Object> deleteFileFromCategory(String categoryId, String fileId, long expires) {
-        return null;
+        String param = "catid=" + categoryId + "&fileid=" + fileId + "&expires=" + getExpires(expires);
+        logger.info("分类中删除文件接口参数param:{}", param);
+        String token = getToken(param);
+        String url = getURL(BFCloudCategory.DELETE_FILE_FROM_CATEGORY, token);
+        return HttpUtil.transferGetResult(url);
     }
 
     @Override
     public Map<String, Object> getFileFromCategory(String categoryId, long expires) {
-        return null;
+        String param = "catid=" + categoryId + "&expires=" + getExpires(expires);
+        logger.info("获取分类中文件接口参数param:{}", param);
+        String token = getToken(param);
+        String url = getURL(BFCloudCategory.GET_FILE_FROM_CATEGORY, token);
+        return HttpUtil.transferGetResult(url);
     }
 
     @Override
     public Map<String, Object> addAlbum(String name, long expires) {
-        return null;
+        String param = "name=" + name + "&expires=" + expires;
+        logger.info("添加专辑接口参数param:{}", param);
+        String token = getToken(param);
+        String url = getURL(BFCloudAlbum.ADD_ALBUM, token);
+        return HttpUtil.transferGetResult(url);
     }
 
     @Override
     public Map<String, Object> deleteAlbum(String albumId, long expires) {
-        return null;
+        String param = "albumid=" + albumId + "&expires=" + getExpires(expires);
+        logger.info("删除专辑接口参数param:{}", param);
+        String token = getToken(param);
+        String url = getURL(BFCloudAlbum.DELETE_ALBUM, token);
+        return HttpUtil.transferGetResult(url);
     }
 
     @Override
     public Map<String, Object> addFile2Album(String fileId, String albumId, long expires) {
-        return null;
+        String param = "fileid=" + fileId + "&albumid=" + albumId + "&expires=" + getExpires(expires);
+        logger.info("专辑中添加文件接口参数param:{}", param);
+        String token = getToken(param);
+        String url = getURL(BFCloudAlbum.ADD_FILE_2_ALBUM, token);
+        return HttpUtil.transferGetResult(url);
     }
 
     @Override
     public Map<String, Object> deleteFileFromAlbum(String fileId, String albumId, long expires) {
-        return null;
+        String param = "fileid=" + fileId + "&albumid=" + albumId + "&expires=" + getExpires(expires);
+        logger.info("专辑中删除文件接口参数param:{}", param);
+        String token = getToken(param);
+        String url = getURL(BFCloudAlbum.DELETE_FILE_FROM_ALBUM, token);
+        return HttpUtil.transferGetResult(url);
     }
 
     @Override
     public Map<String, Object> getFileFromAlbum(String albumId, long expires) {
-        return null;
+        String param = "albumid=" + albumId + "&expires=" + getExpires(expires);
+        logger.info("获取专辑中文件接口参数param:{}", param);
+        String token = getToken(param);
+        String url = getURL(BFCloudAlbum.GET_FILE_FROM_ALBUM, token);
+        return HttpUtil.transferGetResult(url);
+    }
+
+    /**
+     * 取得过期时间
+     *
+     * @param expires 过期时间
+     * @return 过期时间
+     */
+    private long getExpires(long expires) {
+        return System.currentTimeMillis() / 1000 + expires;
+    }
+
+    /**
+     * 取得token
+     *
+     * @param param 请求参数
+     * @return token
+     */
+    private String getToken(String param) {
+        return GenerateTokenUtil.getBFCloudToken(accessKey, secretKey, param);
+    }
+
+    /**
+     * 取得接口调用地址
+     *
+     * @param apiURL 网关接口
+     * @param token  令牌
+     * @return 接口调用地址
+     */
+    private String getURL(String apiURL, String token) {
+        return BFConstent.API_URL + apiURL + URLUtil.makeUrl(appId, token);
     }
 
     /**
@@ -103,12 +172,12 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
                     vodBFManager = new BFCloudVodManager();
                 }
             }
+            /*这里属性赋值放在双重校验外，主要防止反射生成的实例*/
+            appId = config.getAppId();
+            accessKey = config.getAccessKey();
+            secretKey = config.getSecretKey();
+            expires = config.getExpires();
         }
-        /*这里属性赋值放在双重校验外，主要防止反射生成的实例*/
-        appId = config.getAppId();
-        accessKey = config.getAccessKey();
-        secretKey = config.getSecretKey();
-        expires = config.getExpires();
         return vodBFManager;
     }
 }

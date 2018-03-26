@@ -1,10 +1,10 @@
 package com.willie.cloud.vod.factory;
 
 import com.qcloud.vod.VodApi;
-import com.willie.cloud.vod.domain.CloudVodConfig;
 import com.willie.cloud.vod.CloudVodManager;
 import com.willie.cloud.vod.aliyun.AliyunVodManager;
 import com.willie.cloud.vod.bfcloud.BFCloudVodManager;
+import com.willie.cloud.vod.domain.config.CloudVodConfig;
 
 /**
  * <p>功能 描述:云点播服务工厂</p>

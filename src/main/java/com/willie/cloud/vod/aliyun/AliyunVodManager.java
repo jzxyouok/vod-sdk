@@ -1,7 +1,7 @@
 package com.willie.cloud.vod.aliyun;
 
-import com.willie.cloud.vod.domain.CloudVodConfig;
 import com.willie.cloud.vod.CloudVodManager;
+import com.willie.cloud.vod.domain.config.CloudVodConfig;
 
 /**
  * <p>功能 描述:</p>
@@ -28,11 +28,11 @@ public class AliyunVodManager extends CloudVodManager {
                     aliyunVodManager = new AliyunVodManager();
                 }
             }
+            appId = cloudVodConfig.getAppId();
+            accessKey = cloudVodConfig.getAccessKey();
+            secretKey = cloudVodConfig.getSecretKey();
+            expires = cloudVodConfig.getExpires();
         }
-        appId = cloudVodConfig.getAppId();
-        accessKey = cloudVodConfig.getAccessKey();
-        secretKey = cloudVodConfig.getSecretKey();
-        expires = cloudVodConfig.getExpires();
         return aliyunVodManager;
     }
 }
