@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>OSS web直传</title>
+    <style type="text/css">
+        .btn {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            text-decoration: none;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        a.btn:hover {
+            background-color: #3366b7;
+        }
+
+        .manage-upload-list {
+            width: 100%;
+        }
+
+        #uploadlist td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h4>操作：首先设置AccessKey、SecretKey（登录暴风云视频后在用户中心->用户资料获取），然后选择文件，点击开始上传即可</h4>
+
+<div style="margin:20px 0px 0px 20px;">
+    AccessKey: <input type="text" id="inputAK" style="width:400px"
+                      value=""/><font color="red"> *</font><br/><br/>
+    SecretKey: <input type="text" id="inputSK" style="width:400px"
+                      value=""/><font color="red"> *</font><br/>
+    <button id="setkey">确定</button>
+    <br/>
+</div>
+
+<br/>
+<table border="0" cellspacing="1" cellpadding="0" class="manage-upload-list">
+    <tbody id="uploadlist">
+    <tr>
+
+        <td width="40%">视频名称</td>
+        <td width="10%">大小</td>
+        <td width="15%">视频格式</td>
+        <td width="15%">状态</td>
+        <td width="10%">进度</td>
+        <td width="10%">操作</td>
+    </tr>
+    <tr id="uploadview">
+        <td colspan="6">
+            <div>
+                <span>请先添加视频</span>
+            </div>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+<form id="uploadform" method="post" enctype="multipart/form-data" name="upform">
+    <div style="margin-left:44%;margin-top:20px;">
+        <a id="addupload" href="javascript:void(0);" class='btn'>选择文件</a>
+        <input type="file" id="upfiles" style="display:none;" name="file"
+               multiple="multiple">
+        <a id="uploading" href="javascript:void(0);" class='btn'>开始上传</a>
+        <input type="submit" style="display:none;" name="submit"/>
+    </div>
+</form>
+    <div th:include="/commons/test_foot :: common_foot">
+        <script type="text/javascript" th:src="@{/static/js/baofeng/upload/bfupload.min.js}"></script>
+    </div>
+
+    <script type="text/javascript">
+        $('#setkey').click(function () {
+            myupload.setkey($('#inputAK').val(), $('#inputSK').val());
+        });
+
+        function fileunit(size) {
+            var unit = '';
+            if (size >= 1024) {
+                size /= 1024;
+                unit = 'KB';
+            }
+
+            if (size >= 1024) {
+                size /= 1024;
+                unit = 'MB';
+            }
+
+            if (size >= 1024) {
+                size /= 1024;
+                unit = 'GB';
+            }
+
+            return (size.toFixed(2)) + ' ' + unit;
+        }
+
+        myupload.init({
+            "addbtn": 'addupload',
+            "upbtn": 'uploading',
+            "inputfile": 'upfiles',
+            'changefile': changefile,
+            'startup': startup,
+            'upallsuccess': upallsuccess,
+            'uperror': uperror,
+            "upsuccess": upsuccess,
+            "process": process
+        });
+        myupload.upload({
+            "format": 0,
+            "watermark": 0,
+            "reserved": 1,
+            "encrypttype": 0,
+            "definitions": "0",
+            "ifpublic": 1,
+            "categoryid": 0,
+            "albumid": 0,
+            "callback": ""
+        });
+
+        function changefile() {
+            var file = myupload.global.upfiledata[myupload.global.mindex], farray,
+                html;
+            console.log(myupload.global.mindex);
+            if (typeof(file) != 'undefined') {
+                farray = file.name.split('.')
+                html = "<tr class=\"js_row\" data-id=" + myupload.global.mindex + "><td>" + file.name + "</td>\
+                <td>" + fileunit(file.size) + "</td>\
+                <td>" + (farray.pop()) + "</td>\
+                <td class=\"js_label\">等待上传</td>\
+                <td class=\"js_process\">0%</td>\
+                <td>\
+                <a class=\"js_delete\" href=\"javascript:void(0);\" data-id=" + myupload.global.mindex + " >删除</a>\
+                </td></tr>";
+                $('#uploadview').hide();
+                $('#uploadlist').append(html);
+            }
+        }
+
+        $('#uploadlist').on('click', '.js_delete', function () {
+            var id = $(this).data('id');
+            console.log(id);
+            console.log(myupload.global);
+            delete myupload.global.upfiledata[id];
+            myupload.global.uplength--;
+            $(this).parents('tr').remove();
+
+            if (!myupload.global.uplength) {
+                $('#' + myupload.config.inputfile).val('');
+                $('#uploadview').show();
+                $('#' + myupload.config.upbtn).removeClass('use').addClass('no-use');
+            }
+            console.log(upfiledata, uplength, upfiledata[upindex], upindex);
+        });
+
+        function startup() {
+            console.log(myupload.global);
+            var tobj = $('.js_row[data-id="' + myupload.global.upindex + '"]').find('.js_label');
+            tobj.text('上传中');
+            $('.js_row[data-id="' + myupload.global.upindex + '"]').find('.js_delete').hide();
+        }
+
+        function upallsuccess() {
+            console.log(myupload.global);
+            alert('全部上传完成');
+        }
+
+        function uperror() {
+            $('.js_row[data-id="' + myupload.global.upindex + '"]').find('.js_label').text('上传失败' + myupload.global.errorcode);
+        }
+
+        function upsuccess() {
+            $('.js_row[data-id="' + myupload.global.upindex + '"]').find('.js_label').text('上传成功');
+            $('.js_row[data-id="' + myupload.global.upindex + '"]').find(".js_process").text('100%');
+        }
+
+        function process() {
+            $('.js_row[data-id="' + myupload.global.upindex + '"]').find(".js_process").text(((myupload.global.partnum - 1) * myupload.global.blocksize / myupload.global.filesize * 100).toFixed(0) + '%');
+        }
+    </script>
+</body>
+</html>
