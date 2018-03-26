@@ -1,7 +1,6 @@
 package com.willie.cloud.vod.domain.config;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * <p>功能 描述:</p>
@@ -11,21 +10,22 @@ import java.util.Objects;
 @Entity
 @Table(name = "cloud_vod_config")
 public class CloudVodConfig {
-    private int id;
-    private String appName;
-    private String appId;
-    private String accessKey;
-    private String secretKey;
-    private Integer expires;
-    private Long enable;
+    private Integer id;//主键
+    private String appName;//应用名称
+    private String appId; //应用编码
+    private String accessKey;//公钥
+    private String secretKey;//密钥
+    private Integer expires = 60 * 60 * 24;//token 有效期
+    private Long enable; //是否启用
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -90,22 +90,15 @@ public class CloudVodConfig {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CloudVodConfig that = (CloudVodConfig) o;
-        return id == that.id &&
-                Objects.equals(appName, that.appName) &&
-                Objects.equals(appId, that.appId) &&
-                Objects.equals(accessKey, that.accessKey) &&
-                Objects.equals(secretKey, that.secretKey) &&
-                Objects.equals(expires, that.expires) &&
-                Objects.equals(enable, that.enable);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, appName, appId, accessKey, secretKey, expires, enable);
+    public String toString() {
+        return "CloudVodConfig{" +
+                "id=" + id +
+                ", appName='" + appName + '\'' +
+                ", appId='" + appId + '\'' +
+                ", accessKey='" + accessKey + '\'' +
+                ", secretKey='" + secretKey + '\'' +
+                ", expires=" + expires +
+                ", enable=" + enable +
+                '}';
     }
 }

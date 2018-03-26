@@ -52,13 +52,13 @@
     </bean>
 
     <!--jpa管理事务-->
-    <bean id="jpaTransactionManager"
+    <bean id="transactionManager"
           class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManager"/>
     </bean>
 
     <!--通知-->
-     <tx:advice id="txAdvice" transaction-manager="jpaTransactionManager">
+     <tx:advice id="txAdvice">
          <tx:attributes>
              <tx:method name="save*"/>
              <tx:method name="delete*"/>
