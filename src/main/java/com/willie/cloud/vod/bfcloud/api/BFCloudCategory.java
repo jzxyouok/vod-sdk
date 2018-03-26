@@ -13,6 +13,7 @@ public interface BFCloudCategory {
     String ADD_FILE_2_CATEGORY = "/api/categoryaddfile";
     String DELETE_FILE_FROM_CATEGORY = "/api/categorydelfile";
     String GET_FILE_FROM_CATEGORY = "/api/getcategoryfile";
+    long CATEGORY_NAME_MAXLENGTH_BIT = 128;//分类名称最大字节数
 
     /**
      * <li>接口名：/api/addcategory</li>
@@ -24,7 +25,7 @@ public interface BFCloudCategory {
      * @param expires          token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败,categoryId 分类id，status为0时返回
      */
-    Map<String, Object> addCategory(String name, String parentCategoryId, long expires);
+    Map<String, Object> addCategory(String name, String parentCategoryId, Long expires);
 
     /**
      * <li>接口名：/api/deletecategory</li>
@@ -35,7 +36,7 @@ public interface BFCloudCategory {
      * @param expires    token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败
      */
-    Map<String, Object> deleteCategory(String categoryId, long expires);
+    Map<String, Object> deleteCategory(String categoryId, Long expires);
 
     /**
      * <li>接口名：/api/categoryaddfile</li>
@@ -47,7 +48,7 @@ public interface BFCloudCategory {
      * @param expires    token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败
      */
-    Map<String, Object> addFile2Category(String categoryId, String fileId, long expires);
+    Map<String, Object> addFile2Category(String categoryId, String fileId, Long expires);
 
     /**
      * <li>接口名：/api/categorydelfile</li>
@@ -59,7 +60,7 @@ public interface BFCloudCategory {
      * @param expires    token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败
      */
-    Map<String, Object> deleteFileFromCategory(String categoryId, String fileId, long expires);
+    Map<String, Object> deleteFileFromCategory(String categoryId, String fileId, Long expires);
 
     /**
      * <li>接口名：/api/getcategoryfile</li>
@@ -70,5 +71,5 @@ public interface BFCloudCategory {
      * @param expires    token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败；filelist 文件列表，status为0时返回
      */
-    Map<String, Object> getFileFromCategory(String categoryId, long expires);
+    Map<String, Object> getFileFromCategory(String categoryId, Long expires);
 }

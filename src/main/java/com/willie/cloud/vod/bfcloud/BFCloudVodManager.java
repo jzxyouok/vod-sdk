@@ -27,7 +27,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
     }
 
     @Override
-    public Map<String, Object> deleteFile(String fileId, long expires) {
+    public Map<String, Object> deleteFile(String fileId, Long expires) {
         String param = "fileid=" + fileId + "&expires=" + getExpires(expires);
         logger.info("删除文件接口参数:{},token有效期:{}", param, getExpires(expires));
         String token = getToken(param);
@@ -36,7 +36,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
     }
 
     @Override
-    public Map<String, Object> addCategory(String name, String parentCategoryId, long expires) {
+    public Map<String, Object> addCategory(String name, String parentCategoryId, Long expires) {
         String param = "pcatid=" + parentCategoryId +
                 "&name=" +
                 name +
@@ -48,7 +48,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
     }
 
     @Override
-    public Map<String, Object> deleteCategory(String categoryId, long expires) {
+    public Map<String, Object> deleteCategory(String categoryId, Long expires) {
         String param = "catid=" + categoryId + "&expires=" + getExpires(expires);
         logger.info("删除分类接口参数param:{}", param);
         String token = getToken(param);
@@ -57,7 +57,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
     }
 
     @Override
-    public Map<String, Object> addFile2Category(String categoryId, String fileId, long expires) {
+    public Map<String, Object> addFile2Category(String categoryId, String fileId, Long expires) {
         String param = "catid=" + categoryId + "&fileid=" + fileId + "&expires=" + getExpires(expires);
         logger.info("分类中添加文件接口参数param:{}", param);
         String token = getToken(param);
@@ -66,7 +66,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
     }
 
     @Override
-    public Map<String, Object> deleteFileFromCategory(String categoryId, String fileId, long expires) {
+    public Map<String, Object> deleteFileFromCategory(String categoryId, String fileId, Long expires) {
         String param = "catid=" + categoryId + "&fileid=" + fileId + "&expires=" + getExpires(expires);
         logger.info("分类中删除文件接口参数param:{}", param);
         String token = getToken(param);
@@ -75,7 +75,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
     }
 
     @Override
-    public Map<String, Object> getFileFromCategory(String categoryId, long expires) {
+    public Map<String, Object> getFileFromCategory(String categoryId, Long expires) {
         String param = "catid=" + categoryId + "&expires=" + getExpires(expires);
         logger.info("获取分类中文件接口参数param:{}", param);
         String token = getToken(param);
@@ -84,7 +84,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
     }
 
     @Override
-    public Map<String, Object> addAlbum(String name, long expires) {
+    public Map<String, Object> addAlbum(String name, Long expires) {
         String param = "name=" + name + "&expires=" + expires;
         logger.info("添加专辑接口参数param:{}", param);
         String token = getToken(param);
@@ -93,7 +93,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
     }
 
     @Override
-    public Map<String, Object> deleteAlbum(String albumId, long expires) {
+    public Map<String, Object> deleteAlbum(String albumId, Long expires) {
         String param = "albumid=" + albumId + "&expires=" + getExpires(expires);
         logger.info("删除专辑接口参数param:{}", param);
         String token = getToken(param);
@@ -102,7 +102,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
     }
 
     @Override
-    public Map<String, Object> addFile2Album(String fileId, String albumId, long expires) {
+    public Map<String, Object> addFile2Album(String fileId, String albumId, Long expires) {
         String param = "fileid=" + fileId + "&albumid=" + albumId + "&expires=" + getExpires(expires);
         logger.info("专辑中添加文件接口参数param:{}", param);
         String token = getToken(param);
@@ -111,7 +111,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
     }
 
     @Override
-    public Map<String, Object> deleteFileFromAlbum(String fileId, String albumId, long expires) {
+    public Map<String, Object> deleteFileFromAlbum(String fileId, String albumId, Long expires) {
         String param = "fileid=" + fileId + "&albumid=" + albumId + "&expires=" + getExpires(expires);
         logger.info("专辑中删除文件接口参数param:{}", param);
         String token = getToken(param);
@@ -120,7 +120,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
     }
 
     @Override
-    public Map<String, Object> getFileFromAlbum(String albumId, long expires) {
+    public Map<String, Object> getFileFromAlbum(String albumId, Long expires) {
         String param = "albumid=" + albumId + "&expires=" + getExpires(expires);
         logger.info("获取专辑中文件接口参数param:{}", param);
         String token = getToken(param);
@@ -134,8 +134,9 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
      * @param expires 过期时间
      * @return 过期时间
      */
-    private long getExpires(long expires) {
-        return System.currentTimeMillis() / 1000 + expires;
+    private long getExpires(Long expires) {
+        long time = System.currentTimeMillis() / 1000;
+        return expires == null ? time + BFConstent.DEFAULT_EXPIRES : time + expires.longValue();
     }
 
     /**

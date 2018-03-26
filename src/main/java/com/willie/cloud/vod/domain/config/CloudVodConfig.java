@@ -15,7 +15,7 @@ public class CloudVodConfig {
     private String appId; //应用编码
     private String accessKey;//公钥
     private String secretKey;//密钥
-    private Integer expires = 60 * 60 * 24;//token 有效期
+    private Integer expires;//token 有效期
     private Long enable; //是否启用
 
     @Id

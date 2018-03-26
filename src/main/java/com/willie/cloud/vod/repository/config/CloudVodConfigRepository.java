@@ -18,4 +18,21 @@ public interface CloudVodConfigRepository extends JpaRepository<CloudVodConfig, 
      * @return 配置
      */
     CloudVodConfig findCloudVodConfigByAppName(String appName);
+
+    /**
+     * 根据启用状态查询配置信息
+     *
+     * @param enable 启用状态
+     * @return 配置信息
+     */
+    CloudVodConfig findCloudVodConfigByEnable(long enable);
+
+    /**
+     * 根据应用名称和启用状态查询配置信息
+     *
+     * @param appName 应用名称
+     * @param enable  启用状态
+     * @return 配置信息
+     */
+    CloudVodConfig findCloudVodConfigByAppNameAndEnable(String appName, long enable);
 }

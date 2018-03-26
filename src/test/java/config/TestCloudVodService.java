@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>功能 描述:</p>
+ * <p>功能 描述:点播配置测试</p>
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/26 11:06</p>
  */

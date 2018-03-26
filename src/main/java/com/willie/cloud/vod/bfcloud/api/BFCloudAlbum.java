@@ -13,6 +13,7 @@ public interface BFCloudAlbum {
     String ADD_FILE_2_ALBUM = "/api/albumaddfile";
     String DELETE_FILE_FROM_ALBUM = "/api/albumdelfile";
     String GET_FILE_FROM_ALBUM = "/api/getalbumfile";
+    long ALBUM_NAMEL_MAXLENGTH_BIT = 128;
 
     /**
      * <li>接口名：/api/addalbum</li>
@@ -23,7 +24,7 @@ public interface BFCloudAlbum {
      * @param expires token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败;albumId 专辑id，status为0时返回
      */
-    Map<String, Object> addAlbum(String name, long expires);
+    Map<String, Object> addAlbum(String name, Long expires);
 
     /**
      * <li>接口名：/api/deletealbum/li>
@@ -34,7 +35,7 @@ public interface BFCloudAlbum {
      * @param expires token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败
      */
-    Map<String, Object> deleteAlbum(String albumId, long expires);
+    Map<String, Object> deleteAlbum(String albumId, Long expires);
 
     /**
      * <li>接口名：/api/albumaddfile</li>
@@ -46,7 +47,7 @@ public interface BFCloudAlbum {
      * @param expires token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败
      */
-    Map<String, Object> addFile2Album(String fileId, String albumId, long expires);
+    Map<String, Object> addFile2Album(String fileId, String albumId, Long expires);
 
     /**
      * <li>接口名：/api/albumdelfile</li>
@@ -58,7 +59,7 @@ public interface BFCloudAlbum {
      * @param expires token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败
      */
-    Map<String, Object> deleteFileFromAlbum(String fileId, String albumId, long expires);
+    Map<String, Object> deleteFileFromAlbum(String fileId, String albumId, Long expires);
 
     /**
      * <li>接口名：/api/getalbumfile</li>
@@ -70,5 +71,5 @@ public interface BFCloudAlbum {
      * @return status 0表示成功，非0表示失败;filelist 文件列表，status为0时返回
      * 执行结果：获取专辑中的文件列表，最多1000个文件
      */
-    Map<String, Object> getFileFromAlbum(String albumId, long expires);
+    Map<String, Object> getFileFromAlbum(String albumId, Long expires);
 }

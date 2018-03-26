@@ -19,5 +19,5 @@ public interface FileOpertation {
      * @param expires token超时时间, Unix时间，从1970年01月01日起至今的秒数
      * @return status 0表示成功，非0表示失败
      */
-    Map<String, Object> deleteFile(String fileId, long expires);
+    Map<String, Object> deleteFile(String fileId, Long expires);
 }

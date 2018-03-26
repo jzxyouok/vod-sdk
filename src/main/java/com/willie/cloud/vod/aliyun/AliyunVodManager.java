@@ -9,7 +9,6 @@ import com.willie.cloud.vod.domain.config.CloudVodConfig;
  * <p>创建 时间:2018/3/20 14:50</p>
  */
 public class AliyunVodManager extends CloudVodManager {
-
     private static volatile AliyunVodManager aliyunVodManager;
 
     private AliyunVodManager() {
