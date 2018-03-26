@@ -22,7 +22,7 @@ public abstract class CloudVodService {
      *
      * @return 点播服务配置
      */
-    protected CloudVodConfig getEnableCloudVodManager() {
+    public CloudVodConfig getEnableCloudVodManager() {
         return cloudVodConfigRepository.findCloudVodConfigByEnable(1);
     }
 
