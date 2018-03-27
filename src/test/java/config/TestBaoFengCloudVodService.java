@@ -1,6 +1,6 @@
 package config;
 
-import com.willie.cloud.vod.service.CloudVodUpdateService;
+import com.willie.cloud.vod.service.vod.CloudVodUpdateService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

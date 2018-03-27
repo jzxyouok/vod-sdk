@@ -1,4 +1,4 @@
-package com.willie.cloud.vod.service;
+package com.willie.cloud.vod.service.vod;
 
 import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
 
@@ -11,9 +11,17 @@ import java.util.Map;
  * <p>创建 时间:2018/3/26 15:51</p>
  */
 public interface CloudVodUpdateService {
+
     /**
-     * <li>接口名：/api/deletefile</li>
-     * <li>请求方法：GET</li>
+     * 上传文件到服务器
+     *
+     * @param videoName 视频文件
+     * @param expires   token 有效期
+     * @return status 0表示成功,其它信息
+     */
+    Map<String, Object> uploadFile2Server(String videoName, Integer expires) throws Exception;
+
+    /**
      * 删除一个文件，如果文件不存在则会返回成功
      *
      * @param fileId  32字节文件id，唯一标识符
@@ -99,5 +107,10 @@ public interface CloudVodUpdateService {
      */
     Map<String, Object> deleteFileFromAlbum(String fileId, String albumId, Long expires);
 
+    /**
+     * 取得云点播配置仓库
+     *
+     * @return 云点播配置仓库
+     */
     CloudVodConfigRepository getCloudVodConfigRepository();
 }

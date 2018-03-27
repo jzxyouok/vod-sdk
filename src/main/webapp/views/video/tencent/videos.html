@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:include="/commons/head :: common_head">
+        <title>视频列表</title>
+    </head>
+    <body>
+        <a th:href="@{/video/upload/videos}" class="btn btn-primary">添加</a>
+        <div class="list-group">
+            <div class="table-responsive-md">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">序号</th>
+                            <th scope="col">名称</th>
+                            <th scope="col">上传日期</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr data-th-each="video : ${videos}">
+                            <th scope="row" data-th-text="${videoStat.count}"></th>
+                            <td><a th:href="@{/video/play/{id}/videos(id=${video.id})}" th:text="${video.videoName}"></a></td>
+                            <td data-th-text="${#dates.format(video.uploadDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div th:include="/commons/foot :: common_foot"></div>
+    </body>
+</html>

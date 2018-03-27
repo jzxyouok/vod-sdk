@@ -1,59 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
-        <link href="//imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.css" rel="stylesheet"/>
+    <head th:include="/commons/head :: common_head">
         <title>首页</title>
-        <style type="text/css">
-            *{
-                margin: 0px;
-                padding: 0px;
-            }
-            
-            .container{
-                width: 1260px;
-                background-color: #666666;
-                overflow-y: scroll;
-            }
-            
-            .container .video_panel .video-area{
-                width: 828px;
-                height: 540px;
-                float: left;
-            }
-            
-            .container .video_panel .video_list{
-                width: 320px;
-                height: 540px;
-                margin-left: 5px;
-                padding: 20px;
-                float: left;
-                color: darkorange;
-                background-color: #26262b;
-            }
-        </style>
     </head>
 
-    <body class="container">
-        <div class="video_panel">
-            <div class="video-area">
-                <video id="player-container-id" width="828" height="540" preload="auto">
-                </video>
-            </div>
-            <div class="video_list">
-                播放列表
-            </div>
-        </div>
-        <div th:include="/commons/test_foot :: common_foot"></div>
-        <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.min.js"></script>
+    <body >
+        <div th:include="/commons/foot :: common_foot"></div>
         <script type="text/javascript">
             $(function () {
-                var player = TCPlayer('player-container-id', { // player-container-id 为播放器容器ID，必须与html中一致
-                    fileID: '7447398155012859741', // 请传入需要播放的视频filID 必须
-                    appID: '1256242248' // 请传入点播账号的appID 必须
-                });
+               window.location.href="/video/videos";
             });
         </script>
     </body>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<head th:include="/commons/head :: common_head">
     <title>OSS web直传</title>
     <style type="text/css">
         .btn {
@@ -89,7 +88,7 @@
             </div>
         </form>
     </div>
-    <div th:include="/commons/test_foot :: common_foot"></div>
+    <div th:include="/commons/foot :: common_foot"></div>
     <script type="text/javascript" th:src="@{/static/js/baofeng/upload/bfupload.min.js}"></script>
 
     <script type="text/javascript">

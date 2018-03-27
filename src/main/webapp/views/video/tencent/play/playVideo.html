@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:include="/commons/head :: common_head">
+        <title>视频播放</title>
+        <link href="//imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.css" rel="stylesheet"/>
+    </head>
+    <body class="container">
+        <div class="video_panel">
+            <div class="video-area">
+                <video id="player-container-id" width="828" height="540" preload="auto">
+                </video>
+            </div>
+            <div class="video_list">
+                <ul class="video_item">
+                    <li th:each="item : ${videos}">
+                        <dl>
+                            <dt th:text="${item.videoName}"></dt>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div style="display: none">
+            <input id="fileId" th:value="${fileId}"/>
+            <input id="appId" th:value="${appId}"/>
+        </div>
+        <div th:include="/commons/foot :: common_foot"></div>
+        <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.min.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                var player = TCPlayer('player-container-id', { // player-container-id 为播放器容器ID，必须与html中一致
+                    fileID: $("#fileId").val(), // 请传入需要播放的视频filID 必须
+                    appID: $("#appId").val() // 请传入点播账号的appID 必须
+                });
+            });
+        </script>
+    </body>
+</html>

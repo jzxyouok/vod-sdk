@@ -1,7 +1,7 @@
 package config;
 
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
-import com.willie.cloud.vod.service.CloudVodUpdateService;
+import com.willie.cloud.vod.service.config.VodConfigService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ import java.util.List;
 @ContextConfiguration(value = "classpath:applicationContext.xml")
 public class TestCloudVodService {
     @Autowired
-    private CloudVodUpdateService cloudVodService;
+    private VodConfigService vodConfigService;
 
     @Ignore
     @Test
@@ -44,26 +44,27 @@ public class TestCloudVodService {
         configs.add(baofeng);
         configs.add(tencent);
 
-        System.out.println(cloudVodService.getCloudVodConfigRepository().save(configs));
+        System.out.println(vodConfigService.getCloudVodConfigRepository().save(configs));
     }
 
+    @Ignore
     @Test
     public void testFindConfigByName() {
-        System.out.println(cloudVodService.getCloudVodConfigRepository().findCloudVodConfigByAppName("baofeng"));
+        System.out.println(vodConfigService.getCloudVodConfigRepository().findCloudVodConfigByAppName("baofeng"));
     }
 
     @Ignore
     @Test
     public void testDeleteConfig() {
-        CloudVodConfig bean = cloudVodService.getCloudVodConfigRepository().findOne(1);
-        cloudVodService.getCloudVodConfigRepository().delete(bean);
+        CloudVodConfig bean = vodConfigService.getCloudVodConfigRepository().findOne(1);
+        vodConfigService.getCloudVodConfigRepository().delete(bean);
     }
 
     @Ignore
     @Test
     public void testUpdateConfig() {
-        CloudVodConfig bean = cloudVodService.getCloudVodConfigRepository().findCloudVodConfigByAppName("tencent");
+        CloudVodConfig bean = vodConfigService.getCloudVodConfigRepository().findCloudVodConfigByAppName("tencent");
         bean.setEnable(0L);
-        cloudVodService.getCloudVodConfigRepository().save(bean);
+        vodConfigService.getCloudVodConfigRepository().save(bean);
     }
 }

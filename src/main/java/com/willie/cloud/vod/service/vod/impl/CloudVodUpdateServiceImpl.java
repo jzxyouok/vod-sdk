@@ -1,21 +1,27 @@
-package com.willie.cloud.vod.service.impl;
+package com.willie.cloud.vod.service.vod.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.qcloud.vod.VodApi;
+import com.qcloud.vod.response.VodUploadCommitResponse;
 import com.willie.cloud.vod.aliyun.constent.AliyunConstent;
 import com.willie.cloud.vod.bfcloud.BFCloudVodManager;
 import com.willie.cloud.vod.bfcloud.api.BFCloudAlbum;
 import com.willie.cloud.vod.bfcloud.api.BFCloudCategory;
 import com.willie.cloud.vod.bfcloud.constent.BFConstent;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
+import com.willie.cloud.vod.domain.video.Video;
 import com.willie.cloud.vod.exception.ParameterException;
 import com.willie.cloud.vod.factory.CloudVodFactory;
 import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
-import com.willie.cloud.vod.service.CloudVodService;
-import com.willie.cloud.vod.service.CloudVodUpdateService;
+import com.willie.cloud.vod.service.vod.CloudVodService;
+import com.willie.cloud.vod.service.vod.CloudVodUpdateService;
 import com.willie.cloud.vod.tencent.constent.QCloudConstent;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -25,6 +31,47 @@ import java.util.Map;
  */
 @Service
 public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudVodUpdateService {
+
+    @Override
+    public Map<String, Object> uploadFile2Server(String videoName, Integer expires) throws Exception {
+        if (!StringUtils.hasText(videoName)) {
+            throw new ParameterException("videoName could not be null");
+        }
+
+        String name = videoName.substring(0, videoName.indexOf("."));//取得文件名
+
+        CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
+        logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
+
+        if (null != expires && 0 < expires.intValue()) {
+            enableCloudVodConfig.setExpires(expires);
+        }
+
+        String appName = enableCloudVodConfig.getAppName();
+        if (AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
+            return null;
+        } else if (QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
+            Video qVideo = new Video();
+            qVideo.setVideoName(name);
+            qVideo.setAppId(enableCloudVodConfig.getAppId());
+            Video newVideo = videoRepository.save(qVideo);
+
+            VodApi vodApi = CloudVodFactory.getQCloudVodManager(enableCloudVodConfig);
+            VodUploadCommitResponse vodResponse = vodApi.upload(videoName);//上传video
+            JSONObject vodResponseJSON = (JSONObject) JSONObject.toJSON(vodResponse);
+            logger.info("文件上传响应信息:info{}", vodResponseJSON);
+            if (0 == vodResponseJSON.getIntValue("code")) {
+                newVideo.setUploadDate(new Timestamp(new Date().getTime()));
+                JSONObject videoInfo = vodResponseJSON.getJSONObject("video");
+                newVideo.setVideoRemotePath(videoInfo.getString("url"));
+                newVideo.setVideoId(vodResponseJSON.getString("fileId"));
+                newVideo = videoRepository.saveAndFlush(newVideo);
+            }
+            return vodResponseJSON;
+        } else {//暴风云服务
+            return null;
+        }
+    }
 
     @Override
     public Map<String, Object> deleteFile(String fileId, Long expires) {
@@ -232,7 +279,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
 
     @Override
     public CloudVodConfigRepository getCloudVodConfigRepository() {
-        return cloudVodConfigRepository;
+        return super.getCloudVodConfigRepository();
     }
 
 }

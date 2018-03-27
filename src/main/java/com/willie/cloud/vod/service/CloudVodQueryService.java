@@ -1,4 +1,7 @@
-package com.willie.cloud.vod.service;
+package com.willie.cloud.vod.service.vod;
+
+import com.willie.cloud.vod.domain.config.CloudVodConfig;
+import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
 
 import java.util.Map;
 
@@ -8,6 +11,7 @@ import java.util.Map;
  * <p>创建 时间:2018/3/26 15:50</p>
  */
 public interface CloudVodQueryService {
+
     /**
      * 获取分类中的文件列表，最多1000个文件
      *
@@ -26,6 +30,20 @@ public interface CloudVodQueryService {
      * 执行结果：获取专辑中的文件列表，最多1000个文件
      */
     Map<String, Object> getFileFromAlbum(String albumId, Long expires);
+
+    /**
+     * 取得可用点播服务配置
+     *
+     * @return 点播服务配置
+     */
+    CloudVodConfig getEnableCloudVodManager();
+
+    /**
+     * 取得点播服务仓库
+     *
+     * @return 点播服务仓库
+     */
+    CloudVodConfigRepository getCloudVodConfigRepository();
 }
 
 

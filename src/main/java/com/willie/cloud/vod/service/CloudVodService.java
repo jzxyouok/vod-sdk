@@ -1,7 +1,8 @@
-package com.willie.cloud.vod.service;
+package com.willie.cloud.vod.service.vod;
 
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
 import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
+import com.willie.cloud.vod.repository.video.VideoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +17,22 @@ public abstract class CloudVodService {
 
     @Autowired
     protected CloudVodConfigRepository cloudVodConfigRepository;
+    @Autowired
+    protected VideoRepository videoRepository;
 
     /**
      * 取得可用点播服务配置
      *
      * @return 点播服务配置
      */
-    public CloudVodConfig getEnableCloudVodManager() {
+    protected CloudVodConfig getEnableCloudVodManager() {
         return cloudVodConfigRepository.findCloudVodConfigByEnable(1);
     }
 
     /**
      * 取得配置仓库
      *
-     * @return
+     * @return 配置仓库
      */
     protected CloudVodConfigRepository getCloudVodConfigRepository() {
         return cloudVodConfigRepository;

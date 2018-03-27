@@ -1,12 +1,13 @@
-package com.willie.cloud.vod.service.impl;
+package com.willie.cloud.vod.service.vod.impl;
 
 import com.willie.cloud.vod.aliyun.constent.AliyunConstent;
 import com.willie.cloud.vod.bfcloud.BFCloudVodManager;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
 import com.willie.cloud.vod.exception.ParameterException;
 import com.willie.cloud.vod.factory.CloudVodFactory;
-import com.willie.cloud.vod.service.CloudVodQueryService;
-import com.willie.cloud.vod.service.CloudVodService;
+import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
+import com.willie.cloud.vod.service.vod.CloudVodQueryService;
+import com.willie.cloud.vod.service.vod.CloudVodService;
 import com.willie.cloud.vod.tencent.constent.QCloudConstent;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -57,6 +58,16 @@ public class CloudVodQueryServiceImpl extends CloudVodService implements CloudVo
             BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
             return bfCloudVodManager.getFileFromAlbum(albumId, expires);
         }
+    }
+
+    @Override
+    public CloudVodConfig getEnableCloudVodManager() {
+        return super.getEnableCloudVodManager();
+    }
+
+    @Override
+    public CloudVodConfigRepository getCloudVodConfigRepository() {
+        return super.getCloudVodConfigRepository();
     }
 
 }
