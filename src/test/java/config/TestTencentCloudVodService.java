@@ -5,7 +5,6 @@ import com.willie.cloud.vod.domain.video.Video;
 import com.willie.cloud.vod.service.video.VideoService;
 import com.willie.cloud.vod.service.vod.CloudVodQueryService;
 import com.willie.cloud.vod.service.vod.CloudVodUpdateService;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class TestTencentCloudVodService {
     /**
      * 测试简单上传
      */
-    @Ignore
+
     @Test
     public void testUploadVideo() {
         try {

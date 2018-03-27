@@ -31,7 +31,7 @@ public class TestCloudVodService {
         baofeng.setAppId("12473494");
         baofeng.setAccessKey("UQ2DhfGq1Dccnb5210=j11nef3OiRmUBxUjD0yc0");
         baofeng.setSecretKey("EV6DhfGq1nE6nbNM606x4rnZlyKpEMNS-RFhG-9f");
-        baofeng.setEnable(1L);
+        baofeng.setEnable(0L);
 
         CloudVodConfig tencent = new CloudVodConfig();
         tencent.setAppName("tencent");

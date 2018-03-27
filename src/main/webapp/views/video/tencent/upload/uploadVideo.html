@@ -5,8 +5,11 @@
     </head>
     <body>
         <div>
-            <form th:action="@{/}" enctype="multipart/form-data" method="post">
-12
+            <form th:action="@{/video/videos}" enctype="multipart/form-data"  method="post">
+                <div class="form-group">
+                    <input type="file" name="file"/>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
     </body>
