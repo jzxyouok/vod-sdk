@@ -4,14 +4,14 @@
     <facet type="web" name="Web">
       <configuration>
         <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/../vod-sdk/src/main/webapp/WEB-INF/web.xml" />
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/../vod-sdk/src/main/webapp" relative="/" />
+          <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/../vod-sdk/src/main/java" />
-          <root url="file://$MODULE_DIR$/../vod-sdk/src/main/resources" />
+          <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
         </sourceRoots>
       </configuration>
     </facet>
@@ -31,17 +31,18 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/../vod-sdk/target/classes" />
-    <output-test url="file://$MODULE_DIR$/../vod-sdk/target/test-classes" />
-    <content url="file://$MODULE_DIR$/../vod-sdk">
-      <sourceFolder url="file://$MODULE_DIR$/../vod-sdk/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../vod-sdk/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../vod-sdk/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../vod-sdk/src/test/resources" type="java-test-resource" />
-      <excludeFolder url="file://$MODULE_DIR$/../vod-sdk/target" />
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:4.3.14.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.3.14.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.3.14.RELEASE" level="project" />
@@ -80,7 +81,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:jconsole:1.8.0">
         <CLASSES>
-          <root url="jar://E:/Program Files/Java/jdk1.8.0_161/lib/jconsole.jar!/" />
+          <root url="jar://D:/Program Files/Java/jdk1.8.0_162/lib/jconsole.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -89,7 +90,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:tools:1.8.0">
         <CLASSES>
-          <root url="jar://E:/Program Files/Java/jdk1.8.0_161/lib/tools.jar!/" />
+          <root url="jar://D:/Program Files/Java/jdk1.8.0_162/lib/tools.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
