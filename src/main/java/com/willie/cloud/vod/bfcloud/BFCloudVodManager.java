@@ -5,11 +5,11 @@ import com.willie.cloud.vod.bfcloud.api.BFCloudAlbum;
 import com.willie.cloud.vod.bfcloud.api.BFCloudCategory;
 import com.willie.cloud.vod.bfcloud.api.BFVodCallback;
 import com.willie.cloud.vod.bfcloud.api.FileOpertation;
-import com.willie.cloud.vod.bfcloud.constent.BFConstent;
 import com.willie.cloud.vod.bfcloud.util.GenerateTokenUtil;
-import com.willie.cloud.vod.bfcloud.util.HttpUtil;
 import com.willie.cloud.vod.bfcloud.util.URLUtil;
+import com.willie.cloud.vod.constent.vod.Vod;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
+import com.willie.cloud.vod.util.http.HttpUtil;
 
 import java.util.Map;
 
@@ -136,7 +136,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
      */
     private long getExpires(Long expires) {
         long time = System.currentTimeMillis() / 1000;
-        return expires == null ? time + BFConstent.DEFAULT_EXPIRES : time + expires.longValue();
+        return expires == null ? time + Vod.BfCloudConstent.DEFAULT_EXPIRES : time + expires.longValue();
     }
 
     /**
@@ -157,7 +157,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
      * @return 接口调用地址
      */
     private String getURL(String apiURL, String token) {
-        return BFConstent.API_URL + apiURL + URLUtil.makeUrl(appId, token);
+        return Vod.BfCloudConstent.API_URL + apiURL + URLUtil.makeUrl(appId, token);
     }
 
     /**

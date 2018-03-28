@@ -3,11 +3,10 @@ package com.willie.cloud.vod.service.vod.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.qcloud.vod.VodApi;
 import com.qcloud.vod.response.VodUploadCommitResponse;
-import com.willie.cloud.vod.aliyun.constent.AliyunConstent;
 import com.willie.cloud.vod.bfcloud.BFCloudVodManager;
 import com.willie.cloud.vod.bfcloud.api.BFCloudAlbum;
 import com.willie.cloud.vod.bfcloud.api.BFCloudCategory;
-import com.willie.cloud.vod.bfcloud.constent.BFConstent;
+import com.willie.cloud.vod.constent.vod.Vod;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
 import com.willie.cloud.vod.domain.video.Video;
 import com.willie.cloud.vod.exception.ParameterException;
@@ -15,7 +14,7 @@ import com.willie.cloud.vod.factory.CloudVodFactory;
 import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
 import com.willie.cloud.vod.service.vod.CloudVodService;
 import com.willie.cloud.vod.service.vod.CloudVodUpdateService;
-import com.willie.cloud.vod.tencent.constent.QCloudConstent;
+import com.willie.cloud.vod.util.Charset;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -48,9 +47,9 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
 
         String appName = enableCloudVodConfig.getAppName();
-        if (AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
+        if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
-        } else if (QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
+        } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             Video qVideo = new Video();
             qVideo.setVideoName(name);
             qVideo.setAppId(enableCloudVodConfig.getAppId());
@@ -89,9 +88,9 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
         String appName = enableCloudVodConfig.getAppName();
-        if (AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
+        if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
-        } else if (QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
+        } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
             BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
@@ -106,16 +105,16 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
             throw new ParameterException("categoryName could not be null");
         }
 
-        if (BFCloudCategory.CATEGORY_NAME_MAXLENGTH_BIT < name.getBytes(BFConstent.CHARSET).length) {
+        if (BFCloudCategory.CATEGORY_NAME_MAXLENGTH_BIT < name.getBytes(Charset.UTF8).length) {
             throw new ParameterException("categoryName`s length less then 128");
         }
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
         String appName = enableCloudVodConfig.getAppName();
-        if (AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
+        if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
-        } else if (QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
+        } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
             BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
@@ -134,9 +133,9 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        if (AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
+        if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
-        } else if (QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
+        } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
             BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
@@ -159,9 +158,9 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        if (AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
+        if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
-        } else if (QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
+        } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
             BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
@@ -184,9 +183,9 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        if (AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
+        if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
-        } else if (QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
+        } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
             BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
@@ -201,7 +200,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
             throw new ParameterException("albumName could not be null");
         }
 
-        if (BFCloudAlbum.ALBUM_NAMEL_MAXLENGTH_BIT < name.getBytes(BFConstent.CHARSET).length) {
+        if (BFCloudAlbum.ALBUM_NAMEL_MAXLENGTH_BIT < name.getBytes(Charset.UTF8).length) {
             throw new ParameterException("albumName`s length less then 128");
         }
 
@@ -210,9 +209,9 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        if (AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
+        if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
-        } else if (QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
+        } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
             BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
@@ -227,9 +226,9 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        if (AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
+        if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
-        } else if (QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
+        } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
             BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
@@ -251,9 +250,9 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
 
         String appName = enableCloudVodConfig.getAppName();
 
-        if (AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
+        if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
-        } else if (QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
+        } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
             BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
@@ -275,9 +274,9 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
 
         String appName = enableCloudVodConfig.getAppName();
 
-        if (AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
+        if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
-        } else if (QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
+        } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
             BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);

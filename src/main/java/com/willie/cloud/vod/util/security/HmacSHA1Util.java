@@ -1,6 +1,6 @@
-package com.willie.cloud.vod.bfcloud.util;
+package com.willie.cloud.vod.util.security;
 
-import com.willie.cloud.vod.bfcloud.constent.BFConstent;
+import com.willie.cloud.vod.constent.charset.Charset;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -38,7 +38,7 @@ public class HmacSHA1Util {
      */
     public static byte[] HmacSHA1Encrypt(String text, String encryptKey) {
         try {
-            byte[] data = encryptKey.getBytes(BFConstent.CHARSET);
+            byte[] data = encryptKey.getBytes(Charset.CHARSET);
             //根据给定的字节数组构造一个密钥,第二参数指定一个密钥算法的名称
             SecretKey secretKey = new SecretKeySpec(data, MAC_NAME);
             //生成一个指定 Mac 算法 的 Mac 对象
@@ -46,7 +46,7 @@ public class HmacSHA1Util {
             //用给定密钥初始化 Mac 对象
             mac.init(secretKey);
             //完成 Mac 操作
-            return mac.doFinal(text.getBytes(BFConstent.CHARSET));
+            return mac.doFinal(text.getBytes(Charset.CHARSET));
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (InvalidKeyException e) {

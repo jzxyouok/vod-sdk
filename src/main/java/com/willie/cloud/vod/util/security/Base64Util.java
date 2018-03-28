@@ -1,6 +1,6 @@
-package com.willie.cloud.vod.bfcloud.util;
+package com.willie.cloud.vod.util.security;
 
-import com.willie.cloud.vod.bfcloud.constent.BFConstent;
+import com.willie.cloud.vod.util.Charset;
 import sun.misc.BASE64Encoder;
 
 import java.io.UnsupportedEncodingException;
@@ -24,7 +24,7 @@ public class Base64Util {
             return result;
         }
         try {
-            result = new BASE64Encoder().encode(data.getBytes(BFConstent.CHARSET));
+            result = new BASE64Encoder().encode(data.getBytes(Charset.UTF8));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

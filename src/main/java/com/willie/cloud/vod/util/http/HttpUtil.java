@@ -1,7 +1,7 @@
-package com.willie.cloud.vod.bfcloud.util;
+package com.willie.cloud.vod.util.http;
 
 import com.alibaba.fastjson.JSONObject;
-import com.willie.cloud.vod.bfcloud.constent.BFConstent;
+import com.willie.cloud.vod.constent.charset.Charset;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -77,7 +77,7 @@ public class HttpUtil {
                 for (Map.Entry<String, String> entry : data.entrySet()) {
                     nameValuePairArrayList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
                 }
-                entity = new UrlEncodedFormEntity(nameValuePairArrayList, BFConstent.CHARSET);
+                entity = new UrlEncodedFormEntity(nameValuePairArrayList, Charset.CHARSET);
             }
             // 为HttpPost设置实体数据
             httpPost.setEntity(entity);

@@ -1,5 +1,8 @@
 package com.willie.cloud.vod.bfcloud.util;
 
+import com.willie.cloud.vod.util.security.Base64Util;
+import com.willie.cloud.vod.util.security.HmacSHA1Util;
+
 /**
  * <p>功能 描述:密钥生成工具类</p>
  * <p>创  建 人:Willie</p>
