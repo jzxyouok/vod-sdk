@@ -43,7 +43,6 @@
                 </prop>
                 <prop key="hibernate..hbm2ddl.auto">update</prop><!--自动建表开启-->
                 <prop key="hibernate.show_sql">true</prop><!--打印sql-->
-                <prop key="hibernate.format_sql">true</prop><!--格式化sql-->
                 <prop key="hibernate.dialect"><!--mysql的数据库方言-->
                     org.hibernate.dialect.MySQL5InnoDBDialect
                 </prop>
