@@ -1,23 +1,92 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head th:include="/commons/head :: common_head">
+    <head th:include="/commons/head :: common_head"></head>
+    <head>
         <title>视频播放</title>
         <link href="//imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.css" rel="stylesheet"/>
+        <style type="text/css">
+            *{
+                margin: 0px;
+                padding: 0px;
+            }
+            .video_container{
+                width: 100%;
+                background-color: #fdfcfc;
+            }
+
+            .video_container a{
+                text-decoration: none;
+            }
+
+            nav{
+                background-color: #666666;
+            }
+
+            nav a{
+                margin: 20px;
+            }
+
+            .video_panel{
+                width: 1920px;
+                height: 620px;
+                background-color: #666666;
+            }
+
+            .video{
+                width: 1200px;
+                margin:auto;
+            }
+
+            .video_area{
+                width: 828px;
+                height: 540px;
+                padding: 10px;
+                float: left;
+            }
+
+            .video_list{
+                width: 320px;
+                height: 600px;
+                margin: 10px 10px;
+                padding-left: 25px;
+                float: left;
+                background-color: #26262b;
+            }
+
+            .video_list .video_item{
+                margin: 10px;
+            }
+            .video_list .video_item li{
+                list-style-type: none;
+            }
+
+            .video_list a{
+                font-size: 14px;
+                color: #f5f5f5;
+            }
+
+            .video_list a:HOVER{
+                cursor: pointer;
+                color: #ff6428;
+                background-color: #1d1d21;
+            }
+        </style>
     </head>
-    <body class="container">
+    <body class="video_container">
+        <nav><a th:href="@{/video/videos}">视频大厅</a></nav>
         <div class="video_panel">
-            <div class="video-area">
-                <video id="player-container-id" width="828" height="540" preload="auto">
-                </video>
-            </div>
-            <div class="video_list">
-                <ul class="video_item">
-                    <li th:each="item : ${videos}">
-                        <dl>
-                            <dt th:text="${item.videoName}"></dt>
-                        </dl>
-                    </li>
-                </ul>
+            <div class="video">
+                <div class="video_area">
+                    <video id="player-container-id" width="828" height="540" preload="auto">
+                    </video>
+                </div>
+                <div class="video_list">
+                    <ul class="video_item">
+                        <li th:each="item : ${videos}">
+                            <a th:text="${item.videoName}"></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div style="display: none">

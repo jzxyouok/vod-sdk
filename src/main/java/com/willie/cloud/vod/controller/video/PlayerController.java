@@ -9,6 +9,7 @@ import com.willie.cloud.vod.service.vod.CloudVodQueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +43,7 @@ public class PlayerController {
             model.addAttribute("fileId", video.getVideoId());
 
             CloudVodConfig enableConfig = cloudVodQueryService.getEnableCloudVodManager();
-            List<Video> videos = videoService.getVideoRepository().findVideosByAppIdAndVideoIdIsNotNull(enableConfig.getAppId());
+            List<Video> videos = videoService.getVideoRepository().findVideosByAppIdAndVideoIdIsNotNull(enableConfig.getAppId(),new Sort(Sort.Direction.DESC,"uploadDate"));
             model.addAttribute("videos", videos);
             return "/video/tencent/play/playVideo";
         } catch (Exception e) {

@@ -38,7 +38,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
             throw new ParameterException("videoName could not be null");
         }
 
-        String name = videoName.substring(0, videoName.indexOf("."));//取得文件名
+        String name = videoName.substring(videoName.lastIndexOf("\\") + 1, videoName.indexOf("."));//取得文件名
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());

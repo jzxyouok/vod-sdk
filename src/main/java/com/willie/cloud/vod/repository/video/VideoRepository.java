@@ -1,6 +1,7 @@
 package com.willie.cloud.vod.repository.video;
 
 import com.willie.cloud.vod.domain.video.Video;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +18,8 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
      * 根据点播应用id查询上传成功的视频
      *
      * @param appId
+     * @param sort
      * @return
      */
-    List<Video> findVideosByAppIdAndVideoIdIsNotNull(String appId);
+    List<Video> findVideosByAppIdAndVideoIdIsNotNull(String appId, Sort sort);
 }
