@@ -3,14 +3,27 @@
     <head th:include="/commons/head :: common_head"></head>
     <head>
         <title>上传文件</title>
+        <style type="text/css">
+            .upload_form{
+                margin-top: 10px;
+            }
+        </style>
     </head>
-    <body>
-        <div>
-            <form th:action="@{/video/videos}" enctype="multipart/form-data"  method="post">
+    <body class="container">
+        <div class="row upload_form">
+            <form class="form-horizontal" th:action="@{/video/videos}" enctype="multipart/form-data"  method="post">
                 <div class="form-group">
-                    <input type="file" name="file"/>
+                    <label class="col-sm-2 control-label" for="file">文件</label>
+                    <div class="col-sm-5">
+                        <input type="file" name="file" id="file"/>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">上传</button>
+                        <a class="btn btn-default" th:href="@{/video/videos}">返回</a>
+                    </div>
+                </div>
             </form>
         </div>
     </body>

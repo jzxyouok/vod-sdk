@@ -1,4 +1,4 @@
-package com.willie.cloud.vod.controller.video;
+package com.willie.cloud.vod.controller.video.qcloud;
 
 import com.alibaba.fastjson.JSONObject;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
@@ -23,34 +23,53 @@ import java.io.File;
 import java.util.List;
 
 /**
- * <p>功能 描述:</p>
+ * <p>功能 描述:腾讯云客户端控制器</p>
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/27 11:36</p>
  */
 @Controller
 @RequestMapping("video")
-public class VideoController {
-    private static Logger logger = LoggerFactory.getLogger(VideoController
+public class QCloudVideoController {
+    private static Logger logger = LoggerFactory.getLogger(QCloudVideoController
             .class);
     private final VideoService videoService;
     private final CloudVodQueryService cloudVodQueryService;
     private final CloudVodUpdateService cloudVodUpdateService;
 
+    /**
+     * 视频列表
+     *
+     * @param model 返回数据
+     * @return 视频列表
+     */
     @RequestMapping(value = "/videos", method = RequestMethod.GET)
-    public String index(Model model) {
+    public String list(Model model) {
         CloudVodConfig enableConfig = cloudVodQueryService.getEnableCloudVodManager();
         List<Video> videos = videoService.getVideoRepository().findVideosByAppIdAndVideoIdIsNotNull(enableConfig.getAppId(), new Sort(Sort.Direction.DESC, "uploadDate"));
         model.addAttribute("videos", videos);
         return "/video/tencent/videos";
     }
 
+    /**
+     * 跳转到上传页面
+     *
+     * @return 上传页面
+     */
     @RequestMapping(value = "/upload/videos", method = RequestMethod.GET)
     public String toUpload() {
         return "/video/tencent/upload/uploadVideo";
     }
 
+    /**
+     * 上传视频
+     *
+     * @param request
+     * @param file    视频文件
+     * @param model   返回页面数据
+     * @return 上传成功跳转到视频列表
+     */
     @RequestMapping(value = "/videos", method = RequestMethod.POST)
-    public String uploadVideo(HttpServletRequest request, @RequestParam("file") CommonsMultipartFile file) {
+    public String uploadVideo(HttpServletRequest request, @RequestParam("file") CommonsMultipartFile file, Model model) {
         try {
             if (!file.isEmpty()) {
                 String name = file.getOriginalFilename();
@@ -59,6 +78,7 @@ public class VideoController {
                 String realPath = FileUploadUtil.transferFile2Server(name, serverPath, request, file);//上传文件
                 JSONObject info = (JSONObject) cloudVodUpdateService.uploadFile2Server(realPath, null);
                 if (0 != info.getIntValue("code")) {
+                    model.addAttribute("message", info.getString("message"));
                     return "/error/error";
                 }
             }
@@ -70,7 +90,7 @@ public class VideoController {
     }
 
     @Autowired
-    public VideoController(VideoService videoService, CloudVodQueryService cloudVodQueryService, CloudVodUpdateService cloudVodUpdateService) {
+    public QCloudVideoController(VideoService videoService, CloudVodQueryService cloudVodQueryService, CloudVodUpdateService cloudVodUpdateService) {
         this.videoService = videoService;
         this.cloudVodQueryService = cloudVodQueryService;
         this.cloudVodUpdateService = cloudVodUpdateService;

@@ -56,6 +56,14 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
             qVideo.setAppId(enableCloudVodConfig.getAppId());
             Video newVideo = videoRepository.save(qVideo);
 
+            /**
+             * VodApi
+             *  <li>upload(String videoPath)  简单上传</li>
+             *  <li>upload(String videoPath, String coverPath) 带封面上传</li>
+             *  <>liupload(String videoPath, String coverPath, String procedure)封面和任务流</li>
+             *  任务流：
+             *      <p>将单个视频的处理过程划分为一系列串行的阶段</p>
+             * */
             VodApi vodApi = CloudVodFactory.getQCloudVodManager(enableCloudVodConfig);
             VodUploadCommitResponse vodResponse = vodApi.upload(videoName);//上传video
             JSONObject vodResponseJSON = (JSONObject) JSONObject.toJSON(vodResponse);

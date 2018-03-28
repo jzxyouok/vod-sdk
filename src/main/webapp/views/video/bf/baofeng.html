@@ -2,18 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head th:include="/commons/head :: common_head"></head>
 	<head>
-		<title>上传文件</title>
+		<title>播放</title>
 	</head>
 
 	<body>
-		<iframe id="bf_player" src="http://www.bfvyun.com/player/getplayer?playertype=0&servicetype=1&userid=12473494&fileid=5E6E6AA54DD84FAE80B8CD167029EF2D" height="360" width="640">
-		</iframe>
-
+		<div>
+			<iframe id="bf_player" src="http://www.bfvyun.com/player/getplayer?playertype=0&amp;servicetype=1&amp;userid=12473494&amp;fileid=5E6E6AA54DD84FAE80B8CD167029EF2D" height="360" width="640">
+		    </iframe>
+		</div>
 		<div th:include="/commons/foot :: common_foot"></div>
-        <script type="text/javascript" th:src="@{/static/js/baofeng/play/bf_client_playe.js}"></script>
-        <script type="text/javascript">
-			var vodparam = "http://www.bfvyun.com/player/getswfplayer?playertype=0&servicetype=1&userid=12473494&fileid=5E6E6AA54DD84FAE80B8CD167029EF2D";
-			cloudsdk.initplay("bf_player",{"src":vodparam,"width":"1280","height":"720","id":"cloudsdk","isautosize":"1"});
-		</script>
+		 <script type="text/javascript" th:src="@{/static/js/baofeng/play/bf_client_playe.js}"></script>
+		 <script type="text/javascript">
+			 $(function () {
+                 var vodparam = "http://www.bfvyun.com/player/getswfplayer?playertype=0&amp;servicetype=1&amp;userid=12473494&amp;fileid=5E6E6AA54DD84FAE80B8CD167029EF2D";;
+                 cloudsdk.initplay("bf_player",{"src":vodparam,"width":"1280","height":"720","id":"cloudsdk","isautosize":"1"});
+             });
+		 </script>
 	</body>
 </html>

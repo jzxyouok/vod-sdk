@@ -1,4 +1,4 @@
-package com.willie.cloud.vod.controller.video;
+package com.willie.cloud.vod.controller.video.qcloud;
 
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
 import com.willie.cloud.vod.domain.video.Video;
@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 /**
- * <p>功能 描述:</p>
+ * <p>功能 描述:腾讯云播放控制器</p>
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/27 15:46</p>
  */
 @Controller
 @RequestMapping("video")
-public class PlayerController {
-    private static Logger logger = LoggerFactory.getLogger(PlayerController.class);
+public class QCloudPlayerController {
+    private static Logger logger = LoggerFactory.getLogger(QCloudPlayerController.class);
     private final VideoService videoService;
     private final CloudVodQueryService cloudVodQueryService;
 
@@ -43,7 +43,7 @@ public class PlayerController {
             model.addAttribute("fileId", video.getVideoId());
 
             CloudVodConfig enableConfig = cloudVodQueryService.getEnableCloudVodManager();
-            List<Video> videos = videoService.getVideoRepository().findVideosByAppIdAndVideoIdIsNotNull(enableConfig.getAppId(),new Sort(Sort.Direction.DESC,"uploadDate"));
+            List<Video> videos = videoService.getVideoRepository().findVideosByAppIdAndVideoIdIsNotNull(enableConfig.getAppId(), new Sort(Sort.Direction.DESC, "uploadDate"));
             model.addAttribute("videos", videos);
             return "/video/tencent/play/playVideo";
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class PlayerController {
     }
 
     @Autowired
-    public PlayerController(VideoService videoService, CloudVodQueryService cloudVodQueryService) {
+    public QCloudPlayerController(VideoService videoService, CloudVodQueryService cloudVodQueryService) {
         this.videoService = videoService;
         this.cloudVodQueryService = cloudVodQueryService;
     }
