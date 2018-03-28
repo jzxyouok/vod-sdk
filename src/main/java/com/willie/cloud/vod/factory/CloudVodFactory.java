@@ -1,9 +1,9 @@
 package com.willie.cloud.vod.factory;
 
-import com.qcloud.vod.VodApi;
 import com.willie.cloud.vod.aliyun.AliyunVodManager;
 import com.willie.cloud.vod.bfcloud.BFCloudVodManager;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
+import com.willie.cloud.vod.tencent.QCloudVodManager;
 
 /**
  * <p>功能 描述:云点播服务工厂</p>
@@ -18,8 +18,8 @@ public class CloudVodFactory {
      * @param cloudVodConfig 云点播服务配置
      * @return 云点播服务配置
      */
-    public static VodApi getQCloudVodManager(CloudVodConfig cloudVodConfig) {
-        return new VodApi(cloudVodConfig.getAccessKey(), cloudVodConfig.getSecretKey(), cloudVodConfig.getExpires().intValue());
+    public static QCloudVodManager getQCloudVodManager(CloudVodConfig cloudVodConfig) {
+        return QCloudVodManager.getQCloudVodManagerInstance(cloudVodConfig);
     }
 
     /**

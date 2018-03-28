@@ -7,7 +7,7 @@ import java.util.Map;
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/16 15:49</p>
  */
-public interface FileOpertation {
+public interface BfCloudFileOpertation {
     String DELETE_FILE = "/api/deletefile";//删除文件接口地址
 
     /**

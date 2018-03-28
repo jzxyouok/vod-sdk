@@ -1,10 +1,7 @@
 package com.willie.cloud.vod.bfcloud;
 
 import com.willie.cloud.vod.CloudVodManager;
-import com.willie.cloud.vod.bfcloud.api.BFCloudAlbum;
-import com.willie.cloud.vod.bfcloud.api.BFCloudCategory;
-import com.willie.cloud.vod.bfcloud.api.BFVodCallback;
-import com.willie.cloud.vod.bfcloud.api.FileOpertation;
+import com.willie.cloud.vod.bfcloud.api.*;
 import com.willie.cloud.vod.bfcloud.util.GenerateTokenUtil;
 import com.willie.cloud.vod.bfcloud.util.URLUtil;
 import com.willie.cloud.vod.constent.vod.Vod;
@@ -18,7 +15,7 @@ import java.util.Map;
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/16 14:48</p>
  */
-public class BFCloudVodManager extends CloudVodManager implements FileOpertation, BFVodCallback, BFCloudCategory, BFCloudAlbum {
+public class BFCloudVodManager extends CloudVodManager implements BfCloudFileOpertation, BFVodCallback, BFCloudCategory, BFCloudAlbum {
 
     private static volatile BFCloudVodManager vodBFManager = null;
 
@@ -31,7 +28,7 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
         String param = "fileid=" + fileId + "&expires=" + getExpires(expires);
         logger.info("删除文件接口参数:{},token有效期:{}", param, getExpires(expires));
         String token = getToken(param);
-        String url = getURL(FileOpertation.DELETE_FILE, token);
+        String url = getURL(BfCloudFileOpertation.DELETE_FILE, token);
         return HttpUtil.transferGetResult(url);
     }
 
@@ -126,17 +123,6 @@ public class BFCloudVodManager extends CloudVodManager implements FileOpertation
         String token = getToken(param);
         String url = getURL(BFCloudAlbum.GET_FILE_FROM_ALBUM, token);
         return HttpUtil.transferGetResult(url);
-    }
-
-    /**
-     * 取得过期时间
-     *
-     * @param expires 过期时间
-     * @return 过期时间
-     */
-    private long getExpires(Long expires) {
-        long time = System.currentTimeMillis() / 1000;
-        return expires == null ? time + Vod.BfCloudConstent.DEFAULT_EXPIRES : time + expires.longValue();
     }
 
     /**
