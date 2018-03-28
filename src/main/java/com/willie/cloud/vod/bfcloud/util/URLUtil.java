@@ -1,6 +1,6 @@
 package com.willie.cloud.vod.bfcloud.util;
 
-import com.willie.cloud.vod.bfcloud.constent.BFConstent;
+import com.willie.cloud.vod.util.Charset;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -18,7 +18,7 @@ public class URLUtil {
         url.append(appId);
         url.append("&token=");
         try {
-            url.append(URLEncoder.encode(token, BFConstent.CHARSET));
+            url.append(URLEncoder.encode(token, Charset.UTF8));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
