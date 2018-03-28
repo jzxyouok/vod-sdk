@@ -1,8 +1,6 @@
 package com.willie.cloud.vod.service.vod.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qcloud.vod.VodApi;
-import com.qcloud.vod.response.VodUploadCommitResponse;
 import com.willie.cloud.vod.bfcloud.BFCloudVodManager;
 import com.willie.cloud.vod.bfcloud.api.BFCloudAlbum;
 import com.willie.cloud.vod.bfcloud.api.BFCloudCategory;
@@ -14,6 +12,7 @@ import com.willie.cloud.vod.factory.CloudVodFactory;
 import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
 import com.willie.cloud.vod.service.vod.CloudVodService;
 import com.willie.cloud.vod.service.vod.CloudVodUpdateService;
+import com.willie.cloud.vod.tencent.QCloudVodManager;
 import com.willie.cloud.vod.util.Charset;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -55,18 +54,19 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
             qVideo.setAppId(enableCloudVodConfig.getAppId());
             Video newVideo = videoRepository.save(qVideo);
 
-            VodApi vodApi = CloudVodFactory.getQCloudVodManager(enableCloudVodConfig);
-            VodUploadCommitResponse vodResponse = vodApi.upload(videoName);//上传video
-            JSONObject vodResponseJSON = (JSONObject) JSONObject.toJSON(vodResponse);
-            logger.info("文件上传响应信息:info{}", vodResponseJSON);
-            if (0 == vodResponseJSON.getIntValue("code")) {
+            QCloudVodManager qCloudVodManager = CloudVodFactory.getQCloudVodManager
+                    (enableCloudVodConfig);
+            Map<String, Object> info = qCloudVodManager.uploadFile2Server(videoName,
+                    null);//上传video
+            JSONObject vodJson = (JSONObject) info;
+            if (0 == vodJson.getIntValue("code")) {
                 newVideo.setUploadDate(new Timestamp(new Date().getTime()));
-                JSONObject videoInfo = vodResponseJSON.getJSONObject("video");
+                JSONObject videoInfo = vodJson.getJSONObject("video");
                 newVideo.setVideoRemotePath(videoInfo.getString("url"));
-                newVideo.setVideoId(vodResponseJSON.getString("fileId"));
+                newVideo.setVideoId(vodJson.getString("fileId"));
                 newVideo = videoRepository.saveAndFlush(newVideo);
             }
-            return vodResponseJSON;
+            return null;
         } else {//暴风云服务
             return null;
         }
