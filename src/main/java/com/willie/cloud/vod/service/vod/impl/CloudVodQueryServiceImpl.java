@@ -35,7 +35,7 @@ public class CloudVodQueryServiceImpl extends CloudVodService implements CloudVo
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
-            BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
+            BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBfCloudVodManager(enableCloudVodConfig);
             return bfCloudVodManager.getFileFromCategory(categoryId, expires);
         }
     }
@@ -54,7 +54,7 @@ public class CloudVodQueryServiceImpl extends CloudVodService implements CloudVo
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
-            BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBaoFengCloudVodManager(enableCloudVodConfig);
+            BFCloudVodManager bfCloudVodManager = CloudVodFactory.getBfCloudVodManager(enableCloudVodConfig);
             return bfCloudVodManager.getFileFromAlbum(albumId, expires);
         }
     }

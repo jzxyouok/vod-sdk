@@ -20,7 +20,8 @@ public interface Vod {
      * 腾讯云点播基本常量
      */
     class QCloudConstent {
-        public static final String API_URL = "https://vod.api.qcloud.com";//腾讯点播api域名
+        public static final String API_URL = "vod.api.qcloud.com";//腾讯点播api域名
+        public static final String SERVER_URI = "/v2/index.php";
         public static final String APP_NAME = "tencent";//点播服务名称
     }
 

@@ -28,7 +28,7 @@ public class CloudVodFactory {
      * @param cloudVodConfig 云点播服务配置
      * @return 云点播管理
      */
-    public static BFCloudVodManager getBaoFengCloudVodManager(CloudVodConfig cloudVodConfig) {
+    public static BFCloudVodManager getBfCloudVodManager(CloudVodConfig cloudVodConfig) {
         return BFCloudVodManager.getBFCloudVodManagerInstance(cloudVodConfig);
     }
 

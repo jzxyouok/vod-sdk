@@ -40,6 +40,20 @@ public class TestBaoFengCloudVodService {
 
     }
 
+    /**
+     * 分类中添加文件
+     */
+    @Ignore
+    @Test
+    public void testAddFile2Category() {
+        Map<String, Object> info = cloudVodUpdateService.addFile2Category("6355222", "5E6E6AA54DD84FAE80B8CD167029EF2D", null);
+        System.out.println(info);
+    }
+
+    /**
+     * 测试删除文件
+     */
+    @Ignore
     public void testDeleleFile() {
         String fileId = "5E6E6AA54DD84FAE80B8CD167029EF2D";
     }

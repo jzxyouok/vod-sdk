@@ -51,6 +51,7 @@ public class HttpUtil {
             logger.info("GET请求响应体:{}", responseBody);
             resultMap = JSONObject.parseObject(responseBody);
         } catch (IOException e) {
+            logger.error("客户端请求失败errInfo:{}",e);
             e.printStackTrace();
         }
         return resultMap;
