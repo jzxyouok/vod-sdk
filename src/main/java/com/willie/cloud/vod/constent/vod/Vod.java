@@ -6,19 +6,21 @@ package com.willie.cloud.vod.constent.vod;
  * <p>创建 时间:2018/3/28 16:59</p>
  */
 public interface Vod {
+    long DEFAULT_EXPIRES = 60 * 60 * 24;//默认token有效期
+
     /**
      * 暴风云点播基本常量
      */
     class BfCloudConstent {
         public static final String API_URL = "http://api.bfvyun.com";//点播服务api
         public static final String APP_NAME = "baofeng";//点播服务名称
-        public static final long DEFAULT_EXPIRES = 60 * 60 * 24;
     }
 
     /**
      * 腾讯云点播基本常量
      */
     class QCloudConstent {
+        public static final String API_URL = "https://vod.api.qcloud.com";//腾讯点播api域名
         public static final String APP_NAME = "tencent";//点播服务名称
     }
 

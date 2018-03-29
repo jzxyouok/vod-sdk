@@ -74,13 +74,16 @@ public class HttpUtil {
             //将传过来的参数添加到List<NameValuePair>中
             if (null != data && !data.isEmpty()) {
                 nameValuePairArrayList = new ArrayList<>(data.size());
-                for (Map.Entry<String, String> entry : data.entrySet()) {
+                data.entrySet().forEach((entry) -> {
                     nameValuePairArrayList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-                }
+                });
+               /* for (Map.Entry<String, String> entry : data.entrySet()) {
+                    nameValuePairArrayList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+                }*/
                 entity = new UrlEncodedFormEntity(nameValuePairArrayList, Charset.CHARSET);
+                // 为HttpPost设置实体数据
+                httpPost.setEntity(entity);
             }
-            // 为HttpPost设置实体数据
-            httpPost.setEntity(entity);
 
             ResponseHandler<String> responseHandler = getResponseHandler();
             logger.info("绑定求处理:{}", responseHandler);

@@ -24,6 +24,6 @@ public abstract class CloudVodManager {
      */
     protected long getExpires(Long expires) {
         long time = System.currentTimeMillis() / 1000;
-        return expires == null ? time + Vod.BfCloudConstent.DEFAULT_EXPIRES : time + expires.longValue();
+        return expires == null ? time + Vod.DEFAULT_EXPIRES : time + expires.longValue();
     }
 }

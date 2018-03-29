@@ -10,7 +10,7 @@ import com.willie.cloud.vod.tencent.api.QCloudFileOpertation;
 import java.util.Map;
 
 /**
- * <p>功能 描述:</p>
+ * <p>功能 描述:腾讯云点播管理</p>
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/28 16:32</p>
  */
