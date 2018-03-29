@@ -21,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>功能 描述:http工具类</p>
@@ -108,7 +109,7 @@ public class HttpUtil {
             int status = httpResponse.getStatusLine().getStatusCode();
             if (status >= 200 && status < 300) {
                 HttpEntity entity = httpResponse.getEntity();
-                return entity != null ? EntityUtils.toString(entity) : null;
+                return Objects.isNull(entity) ? null : EntityUtils.toString(entity);
             } else {
                 throw new ClientProtocolException(
                         "Unexpected response status: " + status);
