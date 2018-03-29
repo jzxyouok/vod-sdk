@@ -75,9 +75,7 @@ public class HttpUtil {
             //将传过来的参数添加到List<NameValuePair>中
             if (null != data && !data.isEmpty()) {
                 nameValuePairArrayList = new ArrayList<>(data.size());
-                data.entrySet().forEach((entry) -> {
-                    nameValuePairArrayList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-                });
+                data.forEach((key, value) -> nameValuePairArrayList.add(new BasicNameValuePair(key, value)));
                /* for (Map.Entry<String, String> entry : data.entrySet()) {
                     nameValuePairArrayList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
                 }*/
