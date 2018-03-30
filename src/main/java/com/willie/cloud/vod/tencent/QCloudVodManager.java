@@ -7,10 +7,10 @@ import com.qcloud.vod.response.VodUploadCommitResponse;
 import com.willie.cloud.vod.CloudVodManager;
 import com.willie.cloud.vod.constent.vod.Vod;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
-import com.willie.cloud.vod.exception.ParameterException;
 import com.willie.cloud.vod.tencent.api.QCloudCategory;
 import com.willie.cloud.vod.tencent.api.QCloudFileOpertation;
 import com.willie.cloud.vod.util.http.RequestMethod;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -32,9 +32,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
 
     @Override
     public Map<String, Object> getVideoInfo(String fileId, List<VideoInfo> infoFilter) {
-        if (!StringUtils.hasText(fileId)) {
-            throw new ParameterException("fileId could not be null");
-        }
+        Assert.hasText(fileId, "fileId could not be null");
 
         TreeMap<String, Object> params = getParams();//请求参数
         params.put("Action", QCloudFileOpertation.GET_VIDEO_INFO);//查询视频信息
@@ -51,9 +49,8 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
 
     @Override
     public Map<String, Object> uploadFile2Server(String videoName, Long expires) throws Exception {
-        if (!StringUtils.hasText(videoName)) {
-            throw new ParameterException("coverName could not be null");
-        }
+        Assert.hasText(videoName, "coverName could not be null");
+
         int tokenExpiresTime = (int) getExpires(expires);//token有效期
         VodApi vodApi = new VodApi(accessKey, secretKey, tokenExpiresTime);
         /*
@@ -72,13 +69,8 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
 
     @Override
     public Map<String, Object> uploadFile2Server(String videoName, String coverName, Long expires) throws Exception {
-        if (!StringUtils.hasText(videoName)) {
-            throw new ParameterException("videoName could not be null");
-        }
-
-        if (!StringUtils.hasText(coverName)) {
-            throw new ParameterException("coverName could not be null");
-        }
+        Assert.hasText(videoName, "videoName could not be null");
+        Assert.hasText(coverName, "coverName could not be null");
 
         int tokenExpiresTime = (int) getExpires(expires);//token有效期
         VodApi vodApi = new VodApi(accessKey, secretKey, tokenExpiresTime);
@@ -91,13 +83,8 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
 
     @Override
     public Map<String, Object> deleteFileFormServer(String fileId, int isFlushCdn, Integer priority) {
-        if (!StringUtils.hasText(fileId)) {
-            throw new ParameterException("fileId could not be null");
-        }
-
-        if (null == priority) {
-            throw new ParameterException("priority could not be null");
-        }
+        Assert.hasText(fileId, "fileId could not be null");
+        Assert.notNull(priority, "priority could not be null");
 
         TreeMap<String, Object> params = getParams();//请求参数
         params.put("Action", QCloudFileOpertation.DELETE_METHOD);//删除
@@ -112,9 +99,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
 
     @Override
     public Map<String, Object> convertVodFile(String fileId, Integer isScreenshot, Integer isWatermark) {
-        if (!StringUtils.hasText(fileId)) {
-            throw new ParameterException("fileId could not be null");
-        }
+        Assert.hasText(fileId, "fileId could not be null");
 
         TreeMap<String, Object> params = getParams();//请求参数
         params.put("Action", QCloudFileOpertation.CONVERT_VOD_FILE);//转码
@@ -135,9 +120,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
 
     @Override
     public Map<String, Object> modifyVodInfo(String fileId, String fileName, String fileIntro, String classId, String expireTime) {
-        if (!StringUtils.hasText(fileId)) {
-            throw new ParameterException("fileId could not be null");
-        }
+        Assert.hasText(fileId, "fileId could not be null");
 
         TreeMap<String, Object> params = getParams();//请求参数
         params.put("Action", QCloudFileOpertation.MODIFY_VOD_INFO);//修改视频文件
@@ -166,9 +149,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
 
     @Override
     public Map<String, Object> addCategory(String className, String parentId) {
-        if (!StringUtils.hasText(className)) {
-            throw new ParameterException("className could not be null");
-        }
+        Assert.hasText(className, "className could not be null");
 
         TreeMap<String, Object> params = getParams();//请求参数
         params.put("Action", QCloudCategory.CREATE_CLASS);//增加分类
@@ -204,13 +185,8 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
 
     @Override
     public Map<String, Object> ModifyCategory(String classId, String className) {
-        if (!StringUtils.hasText(classId)) {
-            throw new ParameterException("classId could not be null");
-        }
-
-        if (!StringUtils.hasText(className)) {
-            throw new ParameterException("className could not be null");
-        }
+        Assert.hasText(classId, "classId could not be null");
+        Assert.hasText(className, "className could not be null");
 
         TreeMap<String, Object> params = getParams();//请求参数
         params.put("Action", QCloudCategory.MODIFY_CLASS);//分类的具体信息
@@ -224,9 +200,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
 
     @Override
     public Map<String, Object> deleteCategory(String classId) {
-        if (!StringUtils.hasText(classId)) {
-            throw new ParameterException("classId could not be null");
-        }
+        Assert.hasText(classId, "classId could not be null");
 
         TreeMap<String, Object> params = getParams();//请求参数
         params.put("Action", QCloudCategory.DELETE_CLASS);//分类的具体信息

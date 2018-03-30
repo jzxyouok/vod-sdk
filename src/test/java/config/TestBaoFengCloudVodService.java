@@ -1,5 +1,6 @@
 package config;
 
+import com.willie.cloud.vod.service.vod.CloudVodQueryService;
 import com.willie.cloud.vod.service.vod.CloudVodUpdateService;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,6 +21,8 @@ import java.util.Map;
 public class TestBaoFengCloudVodService {
     @Autowired
     private CloudVodUpdateService cloudVodUpdateService;
+    @Autowired
+    private CloudVodQueryService cloudVodQueryService;
 
     /**
      * 测试删除分类接口
@@ -28,6 +31,12 @@ public class TestBaoFengCloudVodService {
     @Test
     public void testDeleteCategory() {
         Map<String, Object> info = cloudVodUpdateService.deleteCategory("6365528", null);
+        System.out.println(info);
+    }
+
+    @Test
+    public void testgetFileFromCategory() {
+        Map<String, Object> info = cloudVodQueryService.getFileFromCategory("6355222", null);
         System.out.println(info);
     }
 

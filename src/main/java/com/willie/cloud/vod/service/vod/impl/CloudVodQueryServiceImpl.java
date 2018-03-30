@@ -29,6 +29,7 @@ public class CloudVodQueryServiceImpl extends CloudVodService implements CloudVo
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
+
         String appName = enableCloudVodConfig.getAppName();
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
@@ -48,6 +49,7 @@ public class CloudVodQueryServiceImpl extends CloudVodService implements CloudVo
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
+
         String appName = enableCloudVodConfig.getAppName();
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
