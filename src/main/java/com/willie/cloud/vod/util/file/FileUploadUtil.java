@@ -11,7 +11,7 @@ import java.io.IOException;
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/28 10:14</p>
  */
-public class FileUploadUtil {
+public final class FileUploadUtil {
 
     /**
      * 上传文件到服务器
@@ -32,7 +32,7 @@ public class FileUploadUtil {
             filePath.getParentFile().mkdirs();
         }
 
-        fileEntity.transferTo(new File(realPath + originFileName));//上传文件
+        fileEntity.transferTo(new File(realPath + File.separator + originFileName));//上传文件
 
         return realPath + File.separator + originFileName;
     }

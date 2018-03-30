@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/16 17:08</p>
  */
-public class Base64Util {
+public final class Base64Util {
 
     /**
      * 取得加密数据

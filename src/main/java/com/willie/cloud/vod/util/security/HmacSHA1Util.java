@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/16 17:09</p>
  */
-public class HmacSHA1Util {
+public final class HmacSHA1Util {
     private static final String MAC_NAME = "HmacSHA1";
 
     /**
