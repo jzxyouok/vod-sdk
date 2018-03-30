@@ -8,7 +8,6 @@ import com.willie.cloud.vod.constent.vod.Vod;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
 import com.willie.cloud.vod.domain.video.Video;
 import com.willie.cloud.vod.exception.ParameterException;
-import com.willie.cloud.vod.factory.AbstractCloudVodMangerFactory;
 import com.willie.cloud.vod.factory.CloudVodManagerFactory;
 import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
 import com.willie.cloud.vod.service.vod.CloudVodService;
@@ -38,7 +37,6 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
 
         String name = videoName.substring(videoName.lastIndexOf("\\") + 1, videoName.indexOf("."));//取得文件名
-
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
@@ -47,20 +45,21 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
 
         String appName = enableCloudVodConfig.getAppName();
-        AbstractCloudVodMangerFactory cloudVodMangerFactory = new
-                CloudVodManagerFactory();
+        cloudVodMangerFactory = new CloudVodManagerFactory();
+        Video qVideo;//视频
+
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
-            Video qVideo = new Video();
+            qVideo = new Video();
             qVideo.setVideoName(name);
             qVideo.setAppId(enableCloudVodConfig.getAppId());
             Video newVideo = videoRepository.save(qVideo);
 
             QCloudVodManager qCloudVodManager = cloudVodMangerFactory.getCloudVodManger(QCloudVodManager.class,
                     enableCloudVodConfig);
-            Map<String, Object> resultInfo = qCloudVodManager.uploadFile2Server(videoName,
-                    null);//上传video
+            Map<String, Object> resultInfo = qCloudVodManager.uploadFile2Server(videoName, null);//上传video
+
             JSONObject resultJsonInfo = (JSONObject) resultInfo;
             if (0 == resultJsonInfo.getIntValue("code")) {
                 newVideo.setUploadDate(new Timestamp(new Date().getTime()));
@@ -69,7 +68,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
                 newVideo.setVideoId(resultJsonInfo.getString("fileId"));
                 videoRepository.saveAndFlush(newVideo);
             }
-            return null;
+            return resultJsonInfo;
         } else {//暴风云服务
             return null;
         }
@@ -82,9 +81,10 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
+
         String appName = enableCloudVodConfig.getAppName();
-        AbstractCloudVodMangerFactory cloudVodMangerFactory = new
-                CloudVodManagerFactory();
+        cloudVodMangerFactory = new CloudVodManagerFactory();
+
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
@@ -92,9 +92,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
                     .getCloudVodManger(QCloudVodManager.class, enableCloudVodConfig);
             return qCloudVodManager.deleteFileFormServer(fileId, 1, 0);//删除文件并刷新cdn
         } else {//暴风云服务
-            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory
-                    .getCloudVodManger(BFCloudVodManager.class,
-                            enableCloudVodConfig);
+            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory.getCloudVodManger(BFCloudVodManager.class, enableCloudVodConfig);
             return bfCloudVodManager.deleteFile(fileId, expires);
         }
     }
@@ -112,9 +110,10 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
+
         String appName = enableCloudVodConfig.getAppName();
-        AbstractCloudVodMangerFactory cloudVodMangerFactory = new
-                CloudVodManagerFactory();
+        cloudVodMangerFactory = new CloudVodManagerFactory();
+
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
@@ -122,9 +121,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
                     .getCloudVodManger(QCloudVodManager.class, enableCloudVodConfig);
             return qCloudVodManager.addCategory(name, parentCategoryId);
         } else {//暴风云服务
-            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory
-                    .getCloudVodManger(BFCloudVodManager.class,
-                            enableCloudVodConfig);
+            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory.getCloudVodManger(BFCloudVodManager.class, enableCloudVodConfig);
             return bfCloudVodManager.addCategory(name, parentCategoryId, expires);
         }
     }
@@ -136,12 +133,11 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
-
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        AbstractCloudVodMangerFactory cloudVodMangerFactory = new
-                CloudVodManagerFactory();
+        cloudVodMangerFactory = new CloudVodManagerFactory();
+
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
@@ -149,9 +145,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
                     .getCloudVodManger(QCloudVodManager.class, enableCloudVodConfig);
             return qCloudVodManager.deleteCategory(categoryId);
         } else {//暴风云服务
-            BFCloudVodManager bfCloudVodManager =
-                    cloudVodMangerFactory.getCloudVodManger(BFCloudVodManager.class,
-                            enableCloudVodConfig);
+            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory.getCloudVodManger(BFCloudVodManager.class, enableCloudVodConfig);
             return bfCloudVodManager.deleteCategory(categoryId, expires);
         }
     }
@@ -167,12 +161,11 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
-
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        AbstractCloudVodMangerFactory cloudVodMangerFactory = new
-                CloudVodManagerFactory();
+        cloudVodMangerFactory = new CloudVodManagerFactory();
+
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
@@ -180,9 +173,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
                     .getCloudVodManger(QCloudVodManager.class, enableCloudVodConfig);
             return qCloudVodManager.modifyVodInfo(fileId, null, null, categoryId, null);
         } else {//暴风云服务
-            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory
-                    .getCloudVodManger(BFCloudVodManager.class,
-                            enableCloudVodConfig);
+            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory.getCloudVodManger(BFCloudVodManager.class, enableCloudVodConfig);
             return bfCloudVodManager.addFile2Category(categoryId, fileId, expires);
         }
     }
@@ -198,12 +189,11 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
-
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        AbstractCloudVodMangerFactory cloudVodMangerFactory = new
-                CloudVodManagerFactory();
+        cloudVodMangerFactory = new CloudVodManagerFactory();
+
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
@@ -212,9 +202,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
                             enableCloudVodConfig);
             return qCloudVodManager.modifyVodInfo(fileId, null, null, null, null);//删除分类中的文件
         } else {//暴风云服务
-            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory
-                    .getCloudVodManger(BFCloudVodManager.class,
-                            enableCloudVodConfig);
+            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory.getCloudVodManger(BFCloudVodManager.class, enableCloudVodConfig);
             return bfCloudVodManager.deleteFileFromCategory(categoryId, fileId, expires);
         }
     }
@@ -231,20 +219,17 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
-
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        AbstractCloudVodMangerFactory cloudVodMangerFactory = new
-                CloudVodManagerFactory();
+        cloudVodMangerFactory = new CloudVodManagerFactory();
+
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
-            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory
-                    .getCloudVodManger(BFCloudVodManager.class,
-                            enableCloudVodConfig);
+            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory.getCloudVodManger(BFCloudVodManager.class, enableCloudVodConfig);
             return bfCloudVodManager.addAlbum(name, expires);
         }
 
@@ -256,16 +241,14 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        AbstractCloudVodMangerFactory cloudVodMangerFactory = new
-                CloudVodManagerFactory();
+        cloudVodMangerFactory = new CloudVodManagerFactory();
+
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
-            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory
-                    .getCloudVodManger(BFCloudVodManager.class,
-                            enableCloudVodConfig);
+            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory.getCloudVodManger(BFCloudVodManager.class, enableCloudVodConfig);
             return bfCloudVodManager.deleteAlbum(albumId, expires);
         }
     }
@@ -279,20 +262,19 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         if (!StringUtils.hasText(albumId)) {
             throw new ParameterException("albumId could not be null");
         }
+
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        AbstractCloudVodMangerFactory cloudVodMangerFactory = new
-                CloudVodManagerFactory();
+        cloudVodMangerFactory = new CloudVodManagerFactory();
+
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
-            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory
-                    .getCloudVodManger(BFCloudVodManager.class,
-                            enableCloudVodConfig);
+            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory.getCloudVodManger(BFCloudVodManager.class, enableCloudVodConfig);
             return bfCloudVodManager.addFile2Album(fileId, albumId, expires);
         }
     }
@@ -306,20 +288,19 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         if (!StringUtils.hasText(albumId)) {
             throw new ParameterException("albumId could not be null");
         }
+
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        AbstractCloudVodMangerFactory cloudVodMangerFactory = new
-                CloudVodManagerFactory();
+        cloudVodMangerFactory = new CloudVodManagerFactory();
+
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             return null;
         } else {//暴风云服务
-            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory
-                    .getCloudVodManger(BFCloudVodManager.class,
-                            enableCloudVodConfig);
+            BFCloudVodManager bfCloudVodManager = cloudVodMangerFactory.getCloudVodManger(BFCloudVodManager.class, enableCloudVodConfig);
             return bfCloudVodManager.deleteFileFromAlbum(fileId, albumId, expires);
         }
     }
