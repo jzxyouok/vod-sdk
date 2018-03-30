@@ -236,7 +236,6 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
                     qCloudVodManager = new QCloudVodManager();
                 }
             }
-            /*这里属性赋值放在双重校验外，主要防止反射生成的实例*/
             appId = config.getAppId();
             accessKey = config.getAccessKey();
             secretKey = config.getSecretKey();
