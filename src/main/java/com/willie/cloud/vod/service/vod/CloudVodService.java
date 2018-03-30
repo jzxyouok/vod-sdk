@@ -1,6 +1,7 @@
 package com.willie.cloud.vod.service.vod;
 
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
+import com.willie.cloud.vod.factory.AbstractCloudVodMangerFactory;
 import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
 import com.willie.cloud.vod.repository.video.VideoRepository;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public abstract class CloudVodService {
     protected static Logger logger = LoggerFactory.getLogger(CloudVodService.class);
+    protected AbstractCloudVodMangerFactory cloudVodMangerFactory;
 
     @Autowired
     protected CloudVodConfigRepository cloudVodConfigRepository;

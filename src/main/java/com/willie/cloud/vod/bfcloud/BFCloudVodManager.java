@@ -1,11 +1,13 @@
 package com.willie.cloud.vod.bfcloud;
 
 import com.willie.cloud.vod.CloudVodManager;
-import com.willie.cloud.vod.bfcloud.api.*;
+import com.willie.cloud.vod.bfcloud.api.BFCloudAlbum;
+import com.willie.cloud.vod.bfcloud.api.BFCloudCategory;
+import com.willie.cloud.vod.bfcloud.api.BFVodCallback;
+import com.willie.cloud.vod.bfcloud.api.BfCloudFileOpertation;
 import com.willie.cloud.vod.bfcloud.util.GenerateTokenUtil;
 import com.willie.cloud.vod.bfcloud.util.URLUtil;
 import com.willie.cloud.vod.constent.vod.Vod;
-import com.willie.cloud.vod.domain.config.CloudVodConfig;
 import com.willie.cloud.vod.util.http.HttpUtil;
 
 import java.util.Map;
@@ -16,8 +18,6 @@ import java.util.Map;
  * <p>创建 时间:2018/3/16 14:48</p>
  */
 public class BFCloudVodManager extends CloudVodManager implements BfCloudFileOpertation, BFVodCallback, BFCloudCategory, BFCloudAlbum {
-
-    private static volatile BFCloudVodManager vodBFManager = null;
 
     private BFCloudVodManager() {
 
@@ -147,24 +147,19 @@ public class BFCloudVodManager extends CloudVodManager implements BfCloudFileOpe
     }
 
     /**
+     * 暴风云点播管理工厂
+     */
+    public static class BFCloudVodManagerFactory {
+        private static BFCloudVodManager bfCloudVodManager = new
+                BFCloudVodManager();
+    }
+
+    /**
      * 取得暴风云点播管理的实例
      *
-     * @param config 暴风云vod相关配置信息
      * @return 暴风云点播管理的实例
      */
-    public static BFCloudVodManager getBFCloudVodManagerInstance(CloudVodConfig config) {
-        if (null == vodBFManager) {
-            synchronized (BFCloudVodManager.class) {
-                if (null == vodBFManager) {
-                    vodBFManager = new BFCloudVodManager();
-                }
-            }
-            /*这里属性赋值放在双重校验外，主要防止反射生成的实例*/
-            appId = config.getAppId();
-            accessKey = config.getAccessKey();
-            secretKey = config.getSecretKey();
-            expires = config.getExpires();
-        }
-        return vodBFManager;
+    public static BFCloudVodManager getBFCloudVodManagerInstance() {
+        return BFCloudVodManagerFactory.bfCloudVodManager;
     }
 }
