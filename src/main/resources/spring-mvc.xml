@@ -43,6 +43,7 @@
 
     <bean id="templateEngine"
           class="org.thymeleaf.spring4.SpringTemplateEngine">
+
         <property name="templateResolver" ref="templateResolver"></property>
     </bean>
 

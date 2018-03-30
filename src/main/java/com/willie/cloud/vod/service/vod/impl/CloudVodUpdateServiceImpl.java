@@ -38,6 +38,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
 
         String name = videoName.substring(videoName.lastIndexOf("\\") + 1, videoName.indexOf("."));//取得文件名
+
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
@@ -139,8 +140,8 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
-        cloudVodMangerFactory = new CloudVodManagerFactory();
-
+        AbstractCloudVodMangerFactory cloudVodMangerFactory = new
+                CloudVodManagerFactory();
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
             return null;
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
@@ -230,6 +231,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
+
         logger.info("可用点播服务名称:{}", enableCloudVodConfig.getAppName());
 
         String appName = enableCloudVodConfig.getAppName();
