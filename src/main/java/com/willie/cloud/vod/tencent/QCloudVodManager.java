@@ -6,6 +6,7 @@ import com.qcloud.vod.VodApi;
 import com.qcloud.vod.response.VodUploadCommitResponse;
 import com.willie.cloud.vod.CloudVodManager;
 import com.willie.cloud.vod.constent.vod.Vod;
+import com.willie.cloud.vod.domain.config.CloudVodConfig;
 import com.willie.cloud.vod.exception.ParameterException;
 import com.willie.cloud.vod.tencent.api.QCloudCategory;
 import com.willie.cloud.vod.tencent.api.QCloudFileOpertation;
@@ -23,6 +24,8 @@ import java.util.TreeMap;
  * <p>创建 时间:2018/3/28 16:32</p>
  */
 public class QCloudVodManager extends CloudVodManager implements QCloudFileOpertation, QCloudCategory {
+
+    private static volatile QCloudVodManager qCloudVodManager = null;
 
     private QCloudVodManager() {
     }
@@ -247,18 +250,24 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
     }
 
     /**
-     * 腾讯云点播管理工厂
-     */
-    public static class QCloudVodManagerFactory {
-        private static QCloudVodManager qCloudVodManager = new QCloudVodManager();
-    }
-
-    /**
-     * 取得腾讯云点播管理的实例
+     * 取得暴腾讯云点播管理的实例
      *
+     * @param config 腾讯云vod相关配置信息
      * @return 腾讯云点播管理的实例
      */
-    public static QCloudVodManager getQCloudVodManagerInstance() {
-        return QCloudVodManagerFactory.qCloudVodManager;
+    public static QCloudVodManager getQCloudVodManagerInstance(CloudVodConfig config) {
+        if (null == qCloudVodManager) {
+            synchronized (QCloudVodManager.class) {
+                if (null == qCloudVodManager) {
+                    qCloudVodManager = new QCloudVodManager();
+                }
+            }
+            /*这里属性赋值放在双重校验外，主要防止反射生成的实例*/
+            appId = config.getAppId();
+            accessKey = config.getAccessKey();
+            secretKey = config.getSecretKey();
+            expires = config.getExpires();
+        }
+        return qCloudVodManager;
     }
 }

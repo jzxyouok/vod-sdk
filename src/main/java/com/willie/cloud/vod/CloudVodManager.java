@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class CloudVodManager {
     protected static Logger logger = LoggerFactory.getLogger(CloudVodManager.class);
-    protected String appId;//用户id
-    protected String accessKey;//公钥
-    protected String secretKey;//密钥
-    protected long expires;//token失效时常
+    protected static String appId;//用户id
+    protected static String accessKey;//公钥
+    protected static String secretKey;//密钥
+    protected static long expires;//token失效时常
 
     /**
      * 取得过期时间
@@ -25,29 +25,5 @@ public abstract class CloudVodManager {
     protected long getExpires(Long expires) {
         long time = System.currentTimeMillis() / 1000;
         return expires == null ? time + Vod.DEFAULT_EXPIRES : time + expires.longValue();
-    }
-
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getAccessKey() {
-        return accessKey;
-    }
-
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
-    }
-
-    public String getSecretKey() {
-        return secretKey;
-    }
-
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
     }
 }
