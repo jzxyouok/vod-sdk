@@ -9,10 +9,9 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <!--配置扫描service-->
-    <context:component-scan base-package="com.willie.cloud.vod.service"
-                            annotation-config="true">
+    <context:component-scan base-package="com.willie.cloud.vod.service">
         <context:exclude-filter type="annotation"
-                                expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+                                expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
     <!--预加载jdbc配置-->
@@ -34,7 +33,7 @@
         <property name="packagesToScan"
                   value="com.willie.cloud.vod.domain"/><!--扫描entity-->
         <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"></bean>
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
         <property name="jpaProperties">
             <props>

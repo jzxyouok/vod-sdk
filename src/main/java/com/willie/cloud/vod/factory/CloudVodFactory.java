@@ -41,4 +41,7 @@ public class CloudVodFactory {
     public static AliyunVodManager getAliyunVodManager(CloudVodConfig cloudVodConfig) {
         return AliyunVodManager.getAliyunCloudVodManagerInstance(cloudVodConfig);
     }
+
+    private CloudVodFactory() {
+    }
 }
