@@ -26,14 +26,20 @@ public class AliUploadVideoUtil {
     public static Map<String, Object> uploadVideo(UploadVideoRequest request) {
         UploadVideo uploader = new UploadVideoImpl();
         UploadVideoResponse response = uploader.uploadVideo(request);
-        Map resultInfo = (Map) JSONObject.toJSON(response);
+        JSONObject resultInfo = (JSONObject) JSONObject.toJSON(response);
         return resultInfo;
     }
 
+    /**
+     * 网络流上传
+     *
+     * @param request 网络流请求
+     * @return
+     */
     public static Map<String, Object> uploadURLStream(UploadURLStreamRequest request) {
         UploadVideo uploader = new UploadVideoImpl();
         UploadURLStreamResponse response = uploader.uploadURLStream(request);
-        Map resultInfo = (Map) JSONObject.toJSON(response);
+        JSONObject resultInfo = (JSONObject) JSONObject.toJSON(response);
         return resultInfo;
     }
 }

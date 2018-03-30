@@ -1,6 +1,7 @@
 package com.willie.cloud.vod.service.vod.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.willie.cloud.vod.aliyun.AliyunVodManager;
 import com.willie.cloud.vod.bfcloud.BFCloudVodManager;
 import com.willie.cloud.vod.bfcloud.api.BFCloudAlbum;
 import com.willie.cloud.vod.bfcloud.api.BFCloudCategory;
@@ -46,7 +47,8 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
 
         String appName = enableCloudVodConfig.getAppName();
         if (Vod.AliyunConstent.APP_NAME.equalsIgnoreCase(appName)) {//阿里云服务
-            return null;
+            AliyunVodManager aliyunVodManager = CloudVodFactory.getAliyunVodManager(enableCloudVodConfig);
+            return aliyunVodManager.uoloadFile2Server(null, videoName);
         } else if (Vod.QCloudConstent.APP_NAME.equalsIgnoreCase(appName)) {//腾讯云服务
             Video qVideo = new Video();
             qVideo.setVideoName(name);

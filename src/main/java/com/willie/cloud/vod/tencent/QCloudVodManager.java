@@ -62,7 +62,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
                <p>将单个视频的处理过程划分为一系列串行的阶段</p>
           */
         VodUploadCommitResponse vodResponse = vodApi.upload(videoName);//上传video
-        JSONObject vodResponseInfo = (JSONObject) JSONObject.toJSON(vodResponse);
+        Map vodResponseInfo = (Map) JSONObject.toJSON(vodResponse);
         logger.info("文件上传响应信息:info{}", vodResponseInfo);
         return vodResponseInfo;
     }
