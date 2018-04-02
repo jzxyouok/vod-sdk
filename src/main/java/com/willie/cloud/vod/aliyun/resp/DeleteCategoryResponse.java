@@ -1,0 +1,33 @@
+package com.willie.cloud.vod.aliyun.resp;
+
+import com.aliyuncs.AcsResponse;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.exceptions.ServerException;
+import com.aliyuncs.transform.UnmarshallerContext;
+import com.willie.cloud.vod.aliyun.transform.DeleteCategoryResponseUnmarshaller;
+
+/**
+ * <p>功能 描述:</p>
+ * <p>创  建 人:Willie</p>
+ * <p>创建 时间:2018/4/2 16:19</p>
+ */
+public class DeleteCategoryResponse extends AcsResponse {
+
+    private String requestId;
+
+    public DeleteCategoryResponse() {
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    @Override
+    public DeleteCategoryResponse getInstance(UnmarshallerContext context) throws ClientException, ServerException {
+        return DeleteCategoryResponseUnmarshaller.unmarshall(this, context);
+    }
+}

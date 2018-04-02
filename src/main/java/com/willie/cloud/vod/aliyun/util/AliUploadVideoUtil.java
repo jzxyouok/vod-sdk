@@ -15,7 +15,7 @@ import java.util.Map;
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/30 11:13</p>
  */
-public class AliUploadVideoUtil {
+public abstract class AliUploadVideoUtil {
 
     /**
      * 本地视频上传

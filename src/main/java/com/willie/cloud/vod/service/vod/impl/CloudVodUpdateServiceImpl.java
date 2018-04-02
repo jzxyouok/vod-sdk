@@ -102,7 +102,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
 
         if (BFCloudCategory.CATEGORY_NAME_MAXLENGTH_BIT < name.getBytes(Charset.UTF8).length) {
-            throw new ParameterException("categoryName`s length less then 128");
+            throw new ParameterException("categoryName`s should not be more then 128");
         }
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务
@@ -199,7 +199,7 @@ public class CloudVodUpdateServiceImpl extends CloudVodService implements CloudV
         }
 
         if (BFCloudAlbum.ALBUM_NAMEL_MAXLENGTH_BIT < name.getBytes(Charset.UTF8).length) {
-            throw new ParameterException("albumName`s length less then 128");
+            throw new ParameterException("albumName`s length should not be more then 128");
         }
 
         CloudVodConfig enableCloudVodConfig = getEnableCloudVodManager();//可用点播服务

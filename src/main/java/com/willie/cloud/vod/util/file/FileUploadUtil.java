@@ -11,7 +11,7 @@ import java.io.IOException;
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/28 10:14</p>
  */
-public final class FileUploadUtil {
+public abstract class FileUploadUtil {
 
     /**
      * 上传文件到服务器

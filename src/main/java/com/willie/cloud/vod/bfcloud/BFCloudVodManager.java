@@ -143,7 +143,7 @@ public class BFCloudVodManager extends CloudVodManager implements BfCloudFileOpe
      * @return 接口调用地址
      */
     private String getURL(String apiURL, String token) {
-        return Vod.BfCloudConstent.API_URL + apiURL + URLUtil.makeUrl(appId, token);
+        return Vod.BfCloudConstent.VOD_DOMAIN + apiURL + URLUtil.makeUrl(appId, token);
     }
 
     /**

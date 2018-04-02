@@ -42,7 +42,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
             infoFilter.forEach(info -> params.put("infoFilter." + (index[0]++), info.name()));
         }
 
-        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.API_URL, Vod.QCloudConstent.SERVER_URI);
+        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.VOD_DOMAIN, Vod.QCloudConstent.SERVER_URI);
         String resultInfo = Request.sendRequest(url, params, RequestMethod.GET.name(), null);//发送请求
         return JSONObject.parseObject(resultInfo);
     }
@@ -92,7 +92,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
         params.put("fileId", fileId);
         params.put("priority", priority);
 
-        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.API_URL, Vod.QCloudConstent.SERVER_URI);
+        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.VOD_DOMAIN, Vod.QCloudConstent.SERVER_URI);
         String resultInfo = Request.sendRequest(url, params, RequestMethod.GET.name(), null);//发送请求
         return JSONObject.parseObject(resultInfo);
     }
@@ -113,7 +113,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
             params.put("isWatermark", isWatermark);
         }
 
-        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.API_URL, Vod.QCloudConstent.SERVER_URI);
+        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.VOD_DOMAIN, Vod.QCloudConstent.SERVER_URI);
         String resultInfo = Request.sendRequest(url, params, RequestMethod.GET.name(), null);//发送请求
         return JSONObject.parseObject(resultInfo);
     }
@@ -142,7 +142,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
             params.put("expireTime", expireTime);
         }
 
-        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.API_URL, Vod.QCloudConstent.SERVER_URI);
+        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.VOD_DOMAIN, Vod.QCloudConstent.SERVER_URI);
         String resultInfo = Request.sendRequest(url, params, RequestMethod.GET.name(), null);//发送请求
         return JSONObject.parseObject(resultInfo);
     }
@@ -158,7 +158,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
             params.put("parentId", parentId);
         }
 
-        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.API_URL, Vod.QCloudConstent.SERVER_URI);
+        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.VOD_DOMAIN, Vod.QCloudConstent.SERVER_URI);
         String resultInfo = Request.sendRequest(url, params, RequestMethod.GET.name(), null);//发送请求
         return JSONObject.parseObject(resultInfo);
     }
@@ -168,7 +168,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
         TreeMap<String, Object> params = getParams();//请求参数
         params.put("Action", QCloudCategory.DESCRIBE_ALL_CLASS);//当前用户所有的分类层级关系
 
-        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.API_URL, Vod.QCloudConstent.SERVER_URI);
+        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.VOD_DOMAIN, Vod.QCloudConstent.SERVER_URI);
         String resultInfo = Request.sendRequest(url, params, RequestMethod.GET.name(), null);//发送请求
         return JSONObject.parseObject(resultInfo);
     }
@@ -178,7 +178,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
         TreeMap<String, Object> params = getParams();//请求参数
         params.put("Action", QCloudCategory.DESCRIBE_CLASS);//分类的具体信息
 
-        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.API_URL, Vod.QCloudConstent.SERVER_URI);
+        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.VOD_DOMAIN, Vod.QCloudConstent.SERVER_URI);
         String resultInfo = Request.sendRequest(url, params, RequestMethod.GET.name(), null);//发送请求
         return JSONObject.parseObject(resultInfo);
     }
@@ -193,7 +193,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
         params.put("classId", classId);
         params.put("className", className);
 
-        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.API_URL, Vod.QCloudConstent.SERVER_URI);
+        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.VOD_DOMAIN, Vod.QCloudConstent.SERVER_URI);
         String resultInfo = Request.sendRequest(url, params, RequestMethod.GET.name(), null);//发送请求
         return JSONObject.parseObject(resultInfo);
     }
@@ -206,7 +206,7 @@ public class QCloudVodManager extends CloudVodManager implements QCloudFileOpert
         params.put("Action", QCloudCategory.DELETE_CLASS);//分类的具体信息
         params.put("classId", classId);
 
-        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.API_URL, Vod.QCloudConstent.SERVER_URI);
+        String url = Request.generateUrl(params, accessKey, secretKey, RequestMethod.GET.name(), Vod.QCloudConstent.VOD_DOMAIN, Vod.QCloudConstent.SERVER_URI);
         String resultInfo = Request.sendRequest(url, params, RequestMethod.GET.name(), null);//发送请求
         return JSONObject.parseObject(resultInfo);
     }
