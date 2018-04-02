@@ -1,5 +1,6 @@
 package com.willie.cloud.vod.service.vod;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
 
 import java.io.UnsupportedEncodingException;
@@ -28,7 +29,7 @@ public interface CloudVodUpdateService {
      * @param expires token超时时间, Unix时间，从1970年01月01日起至今的秒数
      * @return status 0表示成功，非0表示失败
      */
-    Map<String, Object> deleteFile(String fileId, Long expires);
+    Map<String, Object> deleteFile(String fileId, Long expires) throws ClientException;
 
     /**
      * 添加一个分类，可以是子分类，最多2级分类，分类个数最多200个
@@ -38,7 +39,7 @@ public interface CloudVodUpdateService {
      * @param expires          token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败,categoryId 分类id，status为0时返回
      */
-    Map<String, Object> addCategory(String name, String parentCategoryId, Long expires) throws UnsupportedEncodingException;
+    Map<String, Object> addCategory(String name, String parentCategoryId, Long expires) throws UnsupportedEncodingException, ClientException;
 
     /**
      * 删除一个分类，如果不存在则返回0，如果包含子分类则会删除所有子分类
@@ -47,7 +48,7 @@ public interface CloudVodUpdateService {
      * @param expires    token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败
      */
-    Map<String, Object> deleteCategory(String categoryId, Long expires);
+    Map<String, Object> deleteCategory(String categoryId, Long expires) throws ClientException;
 
     /**
      * 在分类中添加一个文件，如果分类不存在则添加失败
@@ -57,7 +58,7 @@ public interface CloudVodUpdateService {
      * @param expires    token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败
      */
-    Map<String, Object> addFile2Category(String categoryId, String fileId, Long expires);
+    Map<String, Object> addFile2Category(String categoryId, String fileId, Long expires) throws UnsupportedEncodingException, ClientException;
 
     /**
      * 在分类中删除一个文件，如果分类不存在则删除失败
@@ -67,7 +68,7 @@ public interface CloudVodUpdateService {
      * @param expires    token超时时间, Unix时间，从1970年01月01日起至今的秒数,必输参数
      * @return status 0表示成功，非0表示失败
      */
-    Map<String, Object> deleteFileFromCategory(String categoryId, String fileId, Long expires);
+    Map<String, Object> deleteFileFromCategory(String categoryId, String fileId, Long expires) throws UnsupportedEncodingException, ClientException;
 
     /**
      * 添加一个专辑，专辑个数最多200个
