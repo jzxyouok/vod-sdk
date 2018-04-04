@@ -10,7 +10,7 @@ import com.willie.cloud.vod.tencent.QCloudVodManager;
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/20 13:58</p>
  */
-public class CloudVodFactory {
+public abstract class CloudVodFactory {
 
     /**
      * 腾讯云点播管理

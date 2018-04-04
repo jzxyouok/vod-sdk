@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class BfCloudVideoController {
     private final CloudVodQueryService cloudVodQueryService;
 
     @RequestMapping(value = "/bf/videos", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize, Model model) {
         CloudVodConfig enableConfig = cloudVodQueryService.getEnableCloudVodManager();
         List<Video> videos = videoService.getVideoRepository().findVideosByAppIdAndVideoIdIsNotNull(enableConfig.getAppId(), new Sort(Sort.Direction.DESC, "uploadDate"));
         model.addAttribute("videos", videos);

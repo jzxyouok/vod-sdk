@@ -43,8 +43,19 @@ public class QCloudVideoController {
      * @return 视频列表
      */
     @RequestMapping(value = "/videos", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "pageSize", defaultValue = "4") int pageSize, Model model) {
         CloudVodConfig enableConfig = cloudVodQueryService.getEnableCloudVodManager();
+       /* Pageable pageable = new PageRequest(page, pageSize, Sort.Direction.DESC, "uploadDate");
+        Specification<Video> specification = (root, criteriaQuery, criteriaBuilder) -> {
+            Path<String> appId = root.get("appId");
+            Predicate predicate1 = criteriaBuilder.equal(appId, enableConfig.getAppId());
+            Path<String> videoId = root.get("videoId");
+            Predicate predicate2 = criteriaBuilder.isNotNull(videoId);
+            Predicate predicate3 = criteriaBuilder.and(predicate1, predicate2);
+            return predicate3;
+        };
+
+        Page<Video> videsPage = videoService.getVideoRepository().findAll(specification, pageable);*/
         List<Video> videos = videoService.getVideoRepository().findVideosByAppIdAndVideoIdIsNotNull(enableConfig.getAppId(), new Sort(Sort.Direction.DESC, "uploadDate"));
         model.addAttribute("videos", videos);
         return "/video/tencent/videos";

@@ -1,5 +1,6 @@
 package config;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.willie.cloud.vod.service.vod.CloudVodQueryService;
 import com.willie.cloud.vod.service.vod.CloudVodUpdateService;
 import org.junit.Ignore;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -30,7 +32,12 @@ public class TestBaoFengCloudVodService {
     @Ignore
     @Test
     public void testDeleteCategory() {
-        Map<String, Object> info = cloudVodUpdateService.deleteCategory("6365528", null);
+        Map<String, Object> info = null;
+        try {
+            info = cloudVodUpdateService.deleteCategory("6365528", null);
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
         System.out.println(info);
     }
 
@@ -55,7 +62,14 @@ public class TestBaoFengCloudVodService {
     @Ignore
     @Test
     public void testAddFile2Category() {
-        Map<String, Object> info = cloudVodUpdateService.addFile2Category("6355222", "5E6E6AA54DD84FAE80B8CD167029EF2D", null);
+        Map<String, Object> info = null;
+        try {
+            info = cloudVodUpdateService.addFile2Category("6355222", "5E6E6AA54DD84FAE80B8CD167029EF2D", null);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
         System.out.println(info);
     }
 

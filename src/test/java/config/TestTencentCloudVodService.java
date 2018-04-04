@@ -1,5 +1,6 @@
 package config;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
 import com.willie.cloud.vod.domain.video.Video;
 import com.willie.cloud.vod.service.video.VideoService;
@@ -57,6 +58,8 @@ public class TestTencentCloudVodService {
             System.out.println(info);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+        } catch (ClientException e) {
+            e.printStackTrace();
         }
     }
 
@@ -66,7 +69,14 @@ public class TestTencentCloudVodService {
     @Ignore
     @Test
     public void testModifyVideoInfo() {
-        Map<String, Object> info = cloudVodUpdateService.addFile2Category("395555", "7447398155216264774", null);
+        Map<String, Object> info = null;
+        try {
+            info = cloudVodUpdateService.addFile2Category("395555", "7447398155216264774", null);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
         System.out.println(info);
     }
 

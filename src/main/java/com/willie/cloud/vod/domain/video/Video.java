@@ -3,11 +3,12 @@ package com.willie.cloud.vod.domain.video;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 /**
  * <p>功能 描述:</p>
  * <p>创  建 人:Willie</p>
- * <p>创建 时间:2018/3/27 11:19</p>
+ * <p>创建 时间:2018/4/4 9:55</p>
  */
 @Entity
 public class Video implements Serializable {
@@ -15,22 +16,8 @@ public class Video implements Serializable {
     private String videoName;
     private String videoId;
     private String videoRemotePath;
-    private String coverId;
     private Timestamp uploadDate;
     private String appId;
-
-    public Video() {
-    }
-
-    public Video(Integer id, String videoName, String videoId, String videoRemotePath, String coverId, Timestamp uploadDate, String appId) {
-        this.id = id;
-        this.videoName = videoName;
-        this.videoId = videoId;
-        this.videoRemotePath = videoRemotePath;
-        this.coverId = coverId;
-        this.uploadDate = uploadDate;
-        this.appId = appId;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,7 +31,7 @@ public class Video implements Serializable {
     }
 
     @Basic
-    @Column(name = "video_name", length = 100)
+    @Column(name = "video_name", nullable = true, length = 100)
     public String getVideoName() {
         return videoName;
     }
@@ -54,7 +41,7 @@ public class Video implements Serializable {
     }
 
     @Basic
-    @Column(name = "video_id", length = 100)
+    @Column(name = "video_id", nullable = true, length = 100)
     public String getVideoId() {
         return videoId;
     }
@@ -64,7 +51,7 @@ public class Video implements Serializable {
     }
 
     @Basic
-    @Column(name = "video_remote_path", length = 200)
+    @Column(name = "video_remote_path", nullable = true, length = 200)
     public String getVideoRemotePath() {
         return videoRemotePath;
     }
@@ -74,17 +61,7 @@ public class Video implements Serializable {
     }
 
     @Basic
-    @Column(name = "cover_id", length = 50)
-    public String getCoverId() {
-        return coverId;
-    }
-
-    public void setCoverId(String coverId) {
-        this.coverId = coverId;
-    }
-
-    @Basic
-    @Column(name = "upload_date")
+    @Column(name = "upload_date", nullable = true)
     public Timestamp getUploadDate() {
         return uploadDate;
     }
@@ -94,7 +71,7 @@ public class Video implements Serializable {
     }
 
     @Basic
-    @Column(name = "app_id",length = 50)
+    @Column(name = "app_id", nullable = true, length = 50)
     public String getAppId() {
         return appId;
     }
@@ -104,15 +81,21 @@ public class Video implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Video{" +
-                "id=" + id +
-                ", videoName='" + videoName + '\'' +
-                ", videoId='" + videoId + '\'' +
-                ", videoRemotePath='" + videoRemotePath + '\'' +
-                ", coverId='" + coverId + '\'' +
-                ", uploadDate=" + uploadDate +
-                ", appId='" + appId + '\'' +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Video video = (Video) o;
+        return id == video.id &&
+                Objects.equals(videoName, video.videoName) &&
+                Objects.equals(videoId, video.videoId) &&
+                Objects.equals(videoRemotePath, video.videoRemotePath) &&
+                Objects.equals(uploadDate, video.uploadDate) &&
+                Objects.equals(appId, video.appId);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, videoName, videoId, videoRemotePath, uploadDate, appId);
     }
 }
