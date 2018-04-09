@@ -10,6 +10,9 @@ import com.willie.cloud.vod.util.file.FileUploadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +23,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.List;
 
 /**
  * <p>功能 描述:腾讯云客户端控制器</p>
@@ -45,19 +47,10 @@ public class QCloudVideoController {
     @RequestMapping(value = "/videos", method = RequestMethod.GET)
     public String list(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "pageSize", defaultValue = "4") int pageSize, Model model) {
         CloudVodConfig enableConfig = cloudVodQueryService.getEnableCloudVodManager();
-       /* Pageable pageable = new PageRequest(page, pageSize, Sort.Direction.DESC, "uploadDate");
-        Specification<Video> specification = (root, criteriaQuery, criteriaBuilder) -> {
-            Path<String> appId = root.get("appId");
-            Predicate predicate1 = criteriaBuilder.equal(appId, enableConfig.getAppId());
-            Path<String> videoId = root.get("videoId");
-            Predicate predicate2 = criteriaBuilder.isNotNull(videoId);
-            Predicate predicate3 = criteriaBuilder.and(predicate1, predicate2);
-            return predicate3;
-        };
-
-        Page<Video> videsPage = videoService.getVideoRepository().findAll(specification, pageable);*/
-        List<Video> videos = videoService.getVideoRepository().findVideosByAppIdAndVideoIdIsNotNull(enableConfig.getAppId(), new Sort(Sort.Direction.DESC, "uploadDate"));
-        model.addAttribute("videos", videos);
+        Pageable pageable = new PageRequest(page, pageSize, Sort.Direction.DESC, "uploadDate");
+        Page<Video> videsPage = videoService.getVideoRepository().search(enableConfig,pageable);
+        /*List<Video> videos = videoService.getVideoRepository().findVideosByAppIdAndVideoIdIsNotNull(enableConfig.getAppId(), new Sort(Sort.Direction.DESC, "uploadDate"));*/
+        model.addAttribute("videos", videsPage.getContent());
         return "/video/tencent/videos";
     }
 
