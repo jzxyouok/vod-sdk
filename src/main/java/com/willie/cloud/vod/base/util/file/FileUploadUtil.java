@@ -1,4 +1,4 @@
-package com.willie.cloud.vod.util.file;
+package com.willie.cloud.vod.base.util.file;
 
 import org.springframework.web.multipart.MultipartFile;
 

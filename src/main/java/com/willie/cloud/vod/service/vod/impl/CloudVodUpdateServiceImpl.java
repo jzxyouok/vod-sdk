@@ -15,7 +15,7 @@ import com.willie.cloud.vod.repository.config.CloudVodConfigRepository;
 import com.willie.cloud.vod.service.vod.CloudVodService;
 import com.willie.cloud.vod.service.vod.CloudVodUpdateService;
 import com.willie.cloud.vod.tencent.QCloudVodManager;
-import com.willie.cloud.vod.util.Charset;
+import com.willie.cloud.vod.base.util.Charset;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

@@ -1,6 +1,6 @@
 package com.willie.cloud.vod.bfcloud.util;
 
-import com.willie.cloud.vod.util.Charset;
+import com.willie.cloud.vod.base.util.Charset;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

@@ -1,4 +1,4 @@
-package com.willie.cloud.vod.util.http;
+package com.willie.cloud.vod.base.util.http;
 
 import com.alibaba.fastjson.JSONObject;
 import com.willie.cloud.vod.constent.charset.Charset;

@@ -1,4 +1,4 @@
-package com.willie.cloud.vod.util.http;
+package com.willie.cloud.vod.base.util.http;
 
 /**
  * <p>功能 描述:</p>

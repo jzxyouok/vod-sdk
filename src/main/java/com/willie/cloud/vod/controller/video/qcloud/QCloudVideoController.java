@@ -6,7 +6,7 @@ import com.willie.cloud.vod.domain.video.Video;
 import com.willie.cloud.vod.service.video.VideoService;
 import com.willie.cloud.vod.service.vod.CloudVodQueryService;
 import com.willie.cloud.vod.service.vod.CloudVodUpdateService;
-import com.willie.cloud.vod.util.file.FileUploadUtil;
+import com.willie.cloud.vod.base.util.file.FileUploadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

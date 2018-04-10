@@ -23,7 +23,7 @@ import com.willie.cloud.vod.aliyun.util.AliUploadVideoUtil;
 import com.willie.cloud.vod.constent.charset.Charset;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
 import com.willie.cloud.vod.exception.ParameterException;
-import com.willie.cloud.vod.util.string.ExtStringUtil;
+import com.willie.cloud.vod.base.util.string.ExtStringUtil;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 

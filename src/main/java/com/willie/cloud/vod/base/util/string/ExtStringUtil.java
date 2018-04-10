@@ -1,4 +1,4 @@
-package com.willie.cloud.vod.util.string;
+package com.willie.cloud.vod.base.util.string;
 
 import java.util.List;
 

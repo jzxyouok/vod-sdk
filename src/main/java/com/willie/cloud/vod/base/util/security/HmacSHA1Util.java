@@ -1,4 +1,4 @@
-package com.willie.cloud.vod.util.security;
+package com.willie.cloud.vod.base.util.security;
 
 import com.willie.cloud.vod.constent.charset.Charset;
 

@@ -9,7 +9,7 @@ import com.willie.cloud.vod.constent.vod.Vod;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
 import com.willie.cloud.vod.tencent.api.QCloudCategory;
 import com.willie.cloud.vod.tencent.api.QCloudFileOpertation;
-import com.willie.cloud.vod.util.http.RequestMethod;
+import com.willie.cloud.vod.base.util.http.RequestMethod;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;

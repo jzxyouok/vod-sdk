@@ -6,7 +6,7 @@ import com.willie.cloud.vod.bfcloud.util.GenerateTokenUtil;
 import com.willie.cloud.vod.bfcloud.util.URLUtil;
 import com.willie.cloud.vod.constent.vod.Vod;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
-import com.willie.cloud.vod.util.http.HttpUtil;
+import com.willie.cloud.vod.base.util.http.HttpUtil;
 
 import java.util.Map;
 
