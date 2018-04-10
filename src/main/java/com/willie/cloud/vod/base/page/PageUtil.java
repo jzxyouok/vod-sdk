@@ -15,8 +15,7 @@ import java.util.List;
  * <p>创建 时间:2018/4/10 8:59</p>
  */
 public abstract class PageUtil<E> {
-    private static int DEFAULT_PAGE_NUM = 0;
-    private static int DEFAULT_PAGE_SIZE = 0;
+    private static int DEFAULT_TOTAL = 0;//默认记录总数
 
     /**
      * 取得分页
@@ -27,21 +26,16 @@ public abstract class PageUtil<E> {
      * @return
      */
     public static <E> Page<E> getPage(TypedQuery<E> typedQuery, Pageable pageable) {
+        int total = DEFAULT_TOTAL;//默认记录总数
+        typedQuery.setFirstResult(pageable.getOffset());
+        typedQuery.setMaxResults(pageable.getPageSize());
 
         List pageResultList = typedQuery.getResultList();
-        int page = DEFAULT_PAGE_NUM;
-        int pageSize = DEFAULT_PAGE_SIZE;
         if (CollectionUtils.isEmpty(pageResultList)) {
             pageResultList = Collections.EMPTY_LIST;
         } else {
-            page = pageable.getPageNumber();
-            pageSize = pageable.getPageSize();
+            total = pageResultList.size();
         }
-
-        typedQuery.setFirstResult(page * pageSize);
-        typedQuery.setMaxResults(pageSize);
-
-        Page<E> videoPage = new PageImpl<E>(pageResultList, pageable, pageResultList.size());
-        return videoPage;
+        return new PageImpl<E>(pageResultList, pageable, total);
     }
 }
