@@ -12,7 +12,6 @@ import java.util.List;
  * <p>创  建 人:Willie</p>
  * <p>创建 时间:2018/3/27 10:54</p>
  */
-@Repository
 public interface VideoRepository extends JpaRepository<Video, Integer>, CustomRepository {
     /**
      * 根据点播应用id查询上传成功的视频

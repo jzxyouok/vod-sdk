@@ -1,6 +1,6 @@
-package com.willie.cloud.vod.base.util.security;
+package com.willie.cloud.vod.util.security;
 
-import com.willie.cloud.vod.base.util.Charset;
+import com.willie.cloud.vod.util.Charset;
 import sun.misc.BASE64Encoder;
 
 import java.io.UnsupportedEncodingException;
