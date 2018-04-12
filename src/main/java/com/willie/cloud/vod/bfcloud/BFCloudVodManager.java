@@ -1,12 +1,15 @@
 package com.willie.cloud.vod.bfcloud;
 
 import com.willie.cloud.vod.CloudVodManager;
-import com.willie.cloud.vod.bfcloud.api.*;
+import com.willie.cloud.vod.bfcloud.api.BFCloudAlbum;
+import com.willie.cloud.vod.bfcloud.api.BFCloudCategory;
+import com.willie.cloud.vod.bfcloud.api.BFVodCallback;
+import com.willie.cloud.vod.bfcloud.api.BfCloudFileOpertation;
 import com.willie.cloud.vod.bfcloud.util.GenerateTokenUtil;
 import com.willie.cloud.vod.bfcloud.util.URLUtil;
 import com.willie.cloud.vod.constent.vod.Vod;
 import com.willie.cloud.vod.domain.config.CloudVodConfig;
-import com.willie.cloud.vod.base.util.http.HttpUtil;
+import com.willie.cloud.vod.util.http.HttpUtil;
 
 import java.util.Map;
 
